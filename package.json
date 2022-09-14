@@ -26,9 +26,26 @@
     ]
   },
   "dependencies": {
+    "@web3-onboard/coinbase": "2.1.2",
+    "@web3-onboard/core": "2.8.3",
+    "@web3-onboard/gnosis": "2.1.2",
+    "@web3-onboard/injected-wallets": "2.2.2",
+    "@web3-onboard/ledger": "2.3.0",
+    "@web3-onboard/portis": "2.1.2",
+    "@web3-onboard/react": "2.3.3",
+    "@web3-onboard/torus": "2.1.2",
+    "@web3-onboard/trezor": "2.3.0",
+    "@web3-onboard/walletconnect": "2.1.2",
+    "dotenv": "16.0.2",
+    "ethers": "5.7.1",
     "next": "12.3.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-feather": "2.0.10",
+    "react-jazzicon": "1.0.4",
+    "recoil": "0.7.5",
+    "styled-components": "5.3.5",
+    "usehooks-ts": "2.6.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.1.2",
