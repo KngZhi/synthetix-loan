@@ -23,6 +23,7 @@ const colors = {
   // background
   bgGrayHover: `#424251`,
   bgCyan: `#2ED9FF`,
+  bgGreen: `#31D8A4`,
   bgWhiteAlpha: `rgba(255, 255, 255, 0.16)`,
   bgNavy: `#0B0B22`,
 
@@ -33,6 +34,7 @@ const colors = {
 
   // box-shadow
   stats: `0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)`,
+  header: `0px 0px 10px rgba(0, 0, 0, 0.9)`,
 };
 
 export default colors;
