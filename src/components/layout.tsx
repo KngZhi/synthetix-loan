@@ -8,7 +8,7 @@ import NetworkSelector from '@/components/NetworkSelector';
 import Wallet from '@/components/Wallet';
 
 type LayoutProps = {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 };
 
 const Header = styled.header`
@@ -16,6 +16,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 112px;
 `;
 
 const Logo = styled(FlexRowCentered)`
@@ -48,6 +49,10 @@ const Right = styled(Flex)`
   gap: 18px;
 `;
 
+const Main = styled.main`
+  padding: 0 155px;
+`;
+
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
@@ -68,7 +73,7 @@ export default function Layout({ children }: LayoutProps) {
           <Wallet />
         </Right>
       </Header>
-      <main>{children}</main>
+      <Main>{children}</Main>
     </>
   );
 }
