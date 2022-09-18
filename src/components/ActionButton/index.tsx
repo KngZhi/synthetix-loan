@@ -23,7 +23,7 @@ const IndexButton = styled(Button)<{ state: state }>`
   height: 40px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
   text-transform: capitalize;
-
+  background-color: ${({ theme }) => theme.colors.greenCyan};
   ${({ state }) => {
     switch (state) {
       case `error`:
@@ -42,7 +42,7 @@ const IndexButton = styled(Button)<{ state: state }>`
           color: #000;
         `;
     }
-  }}
+  }};
 `;
 
 export default function ActionButton({

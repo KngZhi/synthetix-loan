@@ -1,7 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-export const Text = styled.span`
+export const Text = styled.span<{ color?: string }>`
   font-family: ${({ theme }) => theme.fonts.inter};
+  color: ${({ color, theme }) => color || theme.colors.white};
 `;
 
 export const Text12 = styled(Text)<{ color?: string }>`
@@ -13,6 +14,11 @@ export const Text12 = styled(Text)<{ color?: string }>`
 export const Text16 = styled(Text)`
   font-size: 16px;
   font-weight: 600;
+`;
+
+export const Text18 = styled(Text)`
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 export const Text24 = styled(Text)`
