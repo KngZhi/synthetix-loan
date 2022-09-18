@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Image, { StaticImageData } from 'next/image';
 import { useRecoilState } from 'recoil';
 import { useSetChain } from '@web3-onboard/react';
 
 import { DefaultDropdownMenu } from '@/components/Dropdown';
-import { NetWorkButton, NetWorkSelectorButton } from '@/components/Base/Button';
+import { NetWorkButton, BaseButton } from '@/components/Base/Button';
 
 // import { networkState } from '../store/index';
 
@@ -21,17 +21,46 @@ const NETWORK_ICON = {
 };
 
 const NetworkSelectorContainer = styled.div`
-  background: linear-gradient(121.5deg, #101215 55.37%, #22272b 106.67%);
+  background-color: ${({ theme }) => theme.colors.bgNavy};
   position: absolute;
-  margin-top: 54px;
-  padding: 8px;
+  margin-top: 44px;
   gap: 2px;
 
   width: 160px;
 
-  border: 1px solid #8282954d;
-  border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.colors.gray900};
+  border-radius: 5px;
   cursor: pointer;
+`;
+
+const NetWorkSelectorButton = styled(BaseButton)<{ active?: boolean }>`
+  border: unset;
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+  height: 40px;
+  padding: 8px 10px;
+  gap: 5px;
+  justify-content: flex-start;
+  position: relative;
+  background-color: transparent;
+  ${({ active }) =>
+    active &&
+    css`
+      background: rgba(130, 130, 149, 0.3);
+      &::after {
+        justify-self: end;
+        display: block;
+        content: ' ';
+        background: #31d8a4;
+        height: 8px;
+        width: 8px;
+        border: 2px solid #31d8a4;
+        border-radius: 50%;
+        box-shadow: 0px 0px 15px rgba(68, 239, 193, 0.6);
+        position: absolute;
+        right: 11%;
+      }
+    `}
 `;
 
 const NetworkButton: FC<NetworkButtonProps> = ({
@@ -101,6 +130,7 @@ const NetworkSelector: FC<NetworkSelectorProps> = ({
       className={containerCls}
       triggerCls={menuCls}
       dropdownCls={dropdownCls}
+      offset={13}
       trigger={
         <NetWorkButton>
           <Image

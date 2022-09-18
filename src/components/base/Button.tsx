@@ -30,33 +30,6 @@ const NetWorkButton = styled(BaseButton)`
   }
 `;
 
-const NetWorkSelectorButton = styled(BaseButton)<{ active?: boolean }>`
-  border: 0;
-  width: 100%;
-  height: 40px;
-  padding: 8px;
-  justify-content: flex-start;
-  position: relative;
-  ${({ active }) =>
-    active &&
-    css`
-      background: rgba(130, 130, 149, 0.3);
-      &::after {
-        justify-self: end;
-        display: block;
-        content: ' ';
-        background: #31d8a4;
-        height: 8px;
-        width: 8px;
-        border: 2px solid #31d8a4;
-        border-radius: 50%;
-        box-shadow: 0px 0px 15px rgba(68, 239, 193, 0.6);
-        position: absolute;
-        right: 11%;
-      }
-    `}
-`;
-
 const Button = styled.button<ButtonProps>`
   padding: 10px, 16px;
   height: 44px;
@@ -147,10 +120,4 @@ const AddrButton = styled(NetWorkButton)`
   }
 `;
 
-export {
-  Button,
-  NetWorkButton,
-  NetWorkSelectorButton,
-  WalletSelectorButton,
-  AddrButton,
-};
+export { Button, NetWorkButton, BaseButton, WalletSelectorButton, AddrButton };
