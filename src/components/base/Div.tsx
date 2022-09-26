@@ -35,3 +35,15 @@ export const FlexJustifyEnd = styled(Flex)`
 export const FlexItemsCenter = styled(Flex)`
   align-items: center;
 `;
+
+export const GridDiv = styled.div`
+  display: grid;
+`;
+
+export const GridDivCentered = styled(GridDiv)`
+  align-items: center;
+`;
+
+export const GridDivCenteredRow = styled(GridDivCentered)`
+  grid-auto-flow: row;
+`;

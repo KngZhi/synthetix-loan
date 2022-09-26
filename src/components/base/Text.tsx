@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const Text = styled.span<{ color?: string }>`
-  font-family: ${({ theme }) => theme.fonts.inter};
+export const Text = styled.span<{ color?: string; size?: number }>`
   color: ${({ color, theme }) => color || theme.colors.white};
+  font-size: ${({ size }) => size || 12}px;
 `;
 
 export const Text12 = styled(Text)<{ color?: string }>`
@@ -31,6 +31,16 @@ export const Text30 = styled(Text)`
   font-weight: 700;
 `;
 
+export const Title = styled(Text30)`
+  display: block;
+  margin-bottom: 27px;
+`;
+
 export const SideText = styled(Text12)`
   color: ${({ theme }) => theme.colors.whiteAlpha700};
+`;
+
+export const SubText = styled(Text12)`
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.gray500};
 `;

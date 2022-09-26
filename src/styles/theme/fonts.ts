@@ -1,6 +1,6 @@
 const fonts = {
-  lustra: `Lustra Text`,
-  inter: `Inter`,
+  lustra: `Inter-Bold`,
+  inter: `Inter-Regular`,
 };
 
 export default fonts;

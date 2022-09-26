@@ -26,7 +26,10 @@
     ]
   },
   "dependencies": {
+    "@faker-js/faker": "7.5.0",
     "@synthetixio/contracts-interface": "2.76.3",
+    "@tanstack/react-table": "8.5.13",
+    "@types/react-table": "7.0.22",
     "@types/styled-components": "5.1.26",
     "@web3-onboard/coinbase": "2.1.2",
     "@web3-onboard/core": "2.8.3",
@@ -46,6 +49,7 @@
     "react-dom": "18.2.0",
     "react-feather": "2.0.10",
     "react-jazzicon": "1.0.4",
+    "react-table": "7.7.0",
     "recoil": "0.7.5",
     "styled-components": "5.3.5",
     "usehooks-ts": "2.6.0"
