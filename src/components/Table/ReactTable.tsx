@@ -131,7 +131,7 @@ export const Table: FC<TableProps> = ({
         <ReactTable
           {...getTableProps()}
           palette={palette}
-          className={className}
+          className="react-table"
         >
           {headerGroups.map((headerGroup) => {
             return (

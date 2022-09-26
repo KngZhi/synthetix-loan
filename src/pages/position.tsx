@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import React from 'react';
 import Head from 'next/head';
 import Layout from '@/components/layout';
-import PositionTable from '@/sections/Positions/PositionTable';
 import { Title } from '@/components/Base/Text';
 import { FlexCol, FlexRow } from '@/components/Base/Div';
+import PositionTable from '@/sections/Positions/PositionTable';
+import LoanHistory from '@/sections/Positions/LoanHistory';
 
 const PositionPage = (): JSX.Element => {
   return (
@@ -17,7 +18,7 @@ const PositionPage = (): JSX.Element => {
         <Container>
           <LeftPanel>
             <PositionTable />
-            <div>Loan History</div>
+            <LoanHistory />
           </LeftPanel>
           <RightPanel>Pending WidthDraw</RightPanel>
         </Container>
