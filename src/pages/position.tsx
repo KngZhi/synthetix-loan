@@ -6,6 +6,7 @@ import { Title } from '@/components/Base/Text';
 import { FlexCol, FlexRow } from '@/components/Base/Div';
 import PositionTable from '@/sections/Positions/PositionTable';
 import LoanHistory from '@/sections/Positions/LoanHistory';
+import PendingWithdrawals from '@/sections/Positions/PendingWithdrawals';
 
 const PositionPage = (): JSX.Element => {
   return (
@@ -20,7 +21,9 @@ const PositionPage = (): JSX.Element => {
             <PositionTable />
             <LoanHistory />
           </LeftPanel>
-          <RightPanel>Pending WidthDraw</RightPanel>
+          <RightPanel>
+            <PendingWithdrawals />
+          </RightPanel>
         </Container>
       </Layout>
     </>

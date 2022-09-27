@@ -43,6 +43,7 @@ type TableProps = {
   sortBy?: object[];
   showShortList?: boolean;
   lastRef?: any;
+  cardHeight?: string;
 };
 
 export const Table: FC<TableProps> = ({
@@ -63,6 +64,7 @@ export const Table: FC<TableProps> = ({
   showShortList,
   sortBy = [],
   lastRef = null,
+  cardHeight = CARD_HEIGHT,
 }) => {
   const memoizedColumns = useMemo(
     () => columns,
@@ -132,6 +134,7 @@ export const Table: FC<TableProps> = ({
           {...getTableProps()}
           palette={palette}
           className="react-table"
+          cardHeight={cardHeight}
         >
           {headerGroups.map((headerGroup) => {
             return (
@@ -219,15 +222,9 @@ const TableBody = styled.div`
 const TableBodyRow = styled.div<{ $highlightRowsOnHover?: boolean }>`
   cursor: ${(props) => (props.onClick ? `pointer` : `default`)};
 
+  border-bottom: 1px solid #575768;
   &:last-child {
     border: none;
-  }
-
-  & > div {
-    border-bottom: 1px solid #575768;
-  }
-
-  &:nth-child(odd) {
   }
 `;
 
@@ -272,7 +269,7 @@ export const TableNoResults = styled(GridDivCenteredRow)`
   }
 `;
 
-const ReactTable = styled.div<{ palette: TablePalette }>`
+const ReactTable = styled.div<{ palette: TablePalette; cardHeight: string }>`
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -284,11 +281,11 @@ const ReactTable = styled.div<{ palette: TablePalette }>`
     props.palette === `primary` &&
     css`
       ${TableBody} {
-        max-height: calc(100% - ${CARD_HEIGHT});
+        max-height: calc(100% - ${props.cardHeight});
       }
       ${TableCell} {
         font-size: 12px;
-        height: ${CARD_HEIGHT};
+        height: ${props.cardHeight};
       }
       ${TableCellHead} {
         color: ${(props) => props.theme.colors.gray};

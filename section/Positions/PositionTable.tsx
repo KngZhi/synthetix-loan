@@ -43,8 +43,8 @@ const PositionTable = (): JSX.Element => {
       accessor: `amount`,
       Cell: ({ row }) => (
         <AmountCell
-          title={`${row.original.amount}`}
-          subtitle={row.original.collateral}
+          title={`${row.original.amount} sUSD`}
+          subtitle={`Collateral: ${row.original.collateral} sMKR`}
         />
       ),
       Header: <HeaderText>Amount</HeaderText>,
