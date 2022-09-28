@@ -6,12 +6,13 @@ import { makeData } from '@/components/Table/makeData';
 import { useState } from 'react';
 import { useBoolean } from 'usehooks-ts';
 import { ChevronDown } from 'react-feather';
+import { DualCurrencyIcon } from '@/components/Currency/CurrencyIcon';
 
 const TogglePanel = () => {
   const { value: isActive, toggle } = useBoolean(true);
   return (
-    <Container active={isActive} onClick={() => toggle(!isActive)}>
-      <TitlePanel>
+    <Container active={isActive}>
+      <TitlePanel onClick={() => toggle(!isActive)}>
         <FlexRowCentered>
           <Text size={20}>Loan History</Text>
           <Number>9</Number>
@@ -30,7 +31,7 @@ const PositionTable = (): JSX.Element => {
   const columns = [
     {
       accessor: `loan`,
-      Cell: (props) => <Text size={14}>{`#${props.row.original.loan}`}</Text>,
+      Cell: (props) => <LoanCell loan={props.row.original.amount} />,
       Header: <HeaderText>Loan</HeaderText>,
       width: 126,
       sortable: true,
@@ -95,6 +96,19 @@ const InterestRate = styled(FlexRowCentered)`
   width: 100%;
 `;
 
+const LoanCell = ({ loan }: { loan: string }) => {
+  return (
+    <Loan>
+      <DualCurrencyIcon
+        leftCurrencyKey="sUSD"
+        rightCurrencyKey="sETH"
+        sizes={22}
+      />
+      <Text size={14}>{`#${loan}`}</Text>
+    </Loan>
+  );
+};
+
 const AmountCell = ({
   title,
   subtitle,
@@ -109,6 +123,10 @@ const AmountCell = ({
     </FlexCol>
   );
 };
+
+const Loan = styled(FlexRowCentered)`
+  gap: 7px;
+`;
 
 const ManageButton = styled.button`
   background: ${({ theme }) => theme.colors.greenCyan};
