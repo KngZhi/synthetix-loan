@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
-export const Text = styled.span<{ color?: string; size?: number }>`
+export const Text = styled.span<{
+  color?: string;
+  size?: number;
+  fontWeight?: number;
+}>`
   color: ${({ color, theme }) => color || theme.colors.white};
   font-size: ${({ size }) => size || 12}px;
+  ${({ fontWeight }) => fontWeight && `font-weight: ${fontWeight};`}
 `;
 
 export const Text12 = styled(Text)<{ color?: string }>`

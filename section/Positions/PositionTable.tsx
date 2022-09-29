@@ -4,6 +4,7 @@ import { FlexRowCentered, FlexCol } from '@/components/Base/Div';
 import Table from '@/components/Table/ReactTable';
 import { makeData } from '@/components/Table/makeData';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const HeaderText = styled(Text12)`
   color: ${({ theme }) => theme.colors.gray700};
@@ -74,7 +75,9 @@ const PositionTable = (): JSX.Element => {
       Cell: (props) => (
         <InterestRate>
           0.25%
-          <ManageButton>Manage</ManageButton>
+          <ManageButton>
+            <Link href={`/loan/${props.row.original.loan}`}>Manage</Link>
+          </ManageButton>
         </InterestRate>
       ),
       accessor: `interestRate`,

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const Flex = styled.div`
+export const Flex = styled.div<{ gap?: number }>`
   display: flex;
+  ${({ gap }) => gap && `gap: ${gap}px;`}
 `;
 
 export const FlexCenter = styled(Flex)`

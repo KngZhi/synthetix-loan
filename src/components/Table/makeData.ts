@@ -28,15 +28,28 @@ const newPerson = (): Person => {
   };
 };
 
-export function makeData(...lens: number[]) {
+const action = () => {
+  return {
+    type: `deposit`,
+    amount: faker.datatype.float(1),
+    date: faker.datatype.datetime().toDateString(),
+  };
+};
+
+export function makeData(func, number = 5) {
   const makeDataLevel = (depth = 0): Person[] => {
-    const len = lens[depth]!;
+    const len = number;
     return range(len).map((d): Person => {
       return {
-        ...newPerson(),
+        ...func(),
       };
     });
   };
+  console.log(makeDataLevel());
 
   return makeDataLevel();
+}
+
+export function makeActions(number = 5) {
+  return makeData(action, number);
 }
