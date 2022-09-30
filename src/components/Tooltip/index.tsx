@@ -27,7 +27,7 @@ export const InfoTooltip = (props) => {
   const { content, ...restProps } = props;
   return (
     <Tooltip
-      html={<TooltipContent>content</TooltipContent>}
+      html={<TooltipContent>{content}</TooltipContent>}
       position="top"
       trigger="mouseenter"
       arrow={true}

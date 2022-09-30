@@ -3,7 +3,8 @@ import { BaseCard } from '@/components/Base/Card';
 import { Text } from '@/components/Base/Text';
 import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { ChevronDown } from 'react-feather';
-import { FlexRowCentered } from '@/components/Base/Div';
+import { FlexRowCentered, FlexCenter } from '@/components/Base/Div';
+import { InfoTooltip } from '@/components/Tooltip';
 
 const ActionCard = () => {
   const actions = [`borrow`, `repay`, `deposit`, `withdraw`, `close`];
@@ -32,6 +33,10 @@ const ActionCard = () => {
           </DropdownList>
         }
       />
+      <SubHeader gap={5}>
+        <Text fontWeight={700}>Borrow</Text>
+        <InfoTooltip content="hello world" />
+      </SubHeader>
     </Container>
   );
 };
@@ -77,6 +82,10 @@ const DropdownList = styled(BaseCard)`
   width: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+const SubHeader = styled(FlexCenter)`
+  margin-top: 21px;
 `;
 
 export default ActionCard;
