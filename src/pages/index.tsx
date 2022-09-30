@@ -1,18 +1,17 @@
 import Head from 'next/head';
 import Layout from '@/components/layout';
-import { Text30, Text16, Text12, SideText } from '@/components/Base/Text';
+import { Text30, Text12, SideText } from '@/components/Base/Text';
 import { BaseCard } from '@/components/Base/Card';
 import styled from 'styled-components';
-import { Flex, FlexCol, FlexItemsCenter, FlexRow } from '@/components/Base/Div';
+import { Flex, FlexCol, FlexItemsCenter } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
 import { ArrowDown, ChevronDown } from 'react-feather';
-import ActionButton from '@/components/ActionButton';
-import Slider from '@/components/Slider';
 import type { TokenInterface } from '@/constants/tokens';
 import { sUSD, ETH } from '@/constants/tokens';
 import Image from 'next/image';
 import { Text18 } from '@/components/Base/Text';
 import { DefaultDropdownMenu } from '@/components/Dropdown';
+import ActionPanel from '@/components/ActionPanel';
 
 const MainCard = styled(BaseCard)`
   padding: 10px;
@@ -40,33 +39,6 @@ const IconArrow = styled(FlexItemsCenter)`
   margin: 0 auto;
   margin-bottom: 26px;
 `;
-
-const InfoCard = styled(BaseCard)`
-  display: flex;
-  flex-direction: column;
-  padding: 10px 20px;
-  gap: 10px;
-  margin-bottom: 35px;
-`;
-
-const SeparateLine = styled.div`
-  background: rgba(130, 130, 149, 0.3);
-  height: 1px;
-`;
-
-type RatioRowProps = {
-  lText: string;
-  rText: string;
-};
-
-const RatioRow = ({ lText, rText }: RatioRowProps) => {
-  return (
-    <FlexRow>
-      <Text16>{lText}</Text16>
-      <Text16>{rText}</Text16>
-    </FlexRow>
-  );
-};
 
 const TokenSelector = ({ token }: { token: TokenInterface }) => {
   const CoinSelector = styled(Flex)<{ height?: string }>`
@@ -140,31 +112,7 @@ export default function Home() {
           <IconArrow>
             <ArrowDown size={32} color="#9999AC" />
           </IconArrow>
-          <TokenCard>
-            <TokenSelector token={ETH} />
-            <Balance>
-              <NumericInput value="0.1" placeholder="0.00" />
-              <SideText>ETH Balance: 1000</SideText>
-            </Balance>
-          </TokenCard>
-          <InfoCard>
-            <RatioRow lText="C-Ratio" rText="123% -> 453%" />
-            <Slider />
-            <FlexRow>
-              <Text12 color="#828295">Increase Risk</Text12>
-              <Text12 color="#828295">Decrease Risk</Text12>
-            </FlexRow>
-            <SeparateLine />
-            <RatioRow lText="Borrow APY" rText="2.99%" />
-            <RatioRow lText="Issuance Fee" rText="2.99%" />
-            <SeparateLine />
-            <RatioRow
-              lText="Gas Price(GWEI)"
-              rText="Tx Cost: 0.0009 E ≠ $8.00"
-            />
-          </InfoCard>
-
-          <ActionButton />
+          <ActionPanel />
         </MainCard>
       </Layout>
     </div>
