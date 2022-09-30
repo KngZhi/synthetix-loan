@@ -19,6 +19,7 @@ import {
 import { BaseCard } from '@/components/Base/Card';
 import { InfoTooltip } from '@/components/Tooltip';
 import ActionHistory from '@/sections/Positions/ActionHistory';
+import ActionCard from '@/sections/Positions/ActionCard';
 
 const Cell = ({
   width = `100%`,
@@ -70,7 +71,7 @@ export default function PostPage() {
           />
           <Title> Loan #{id}</Title>
         </Header>
-        <FlexRow>
+        <Flex gap={24}>
           <FlexCol gap={19}>
             <LoanDetail>
               <Row>
@@ -140,8 +141,8 @@ export default function PostPage() {
             </LoanDetail>
             <ActionHistory />
           </FlexCol>
-          <div>Hello world</div>
-        </FlexRow>
+          <ActionCard />
+        </Flex>
       </Layout>
     </>
   );

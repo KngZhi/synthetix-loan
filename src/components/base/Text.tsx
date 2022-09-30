@@ -8,6 +8,7 @@ export const Text = styled.span<{
   color: ${({ color, theme }) => color || theme.colors.white};
   font-size: ${({ size }) => size || 12}px;
   ${({ fontWeight }) => fontWeight && `font-weight: ${fontWeight};`}
+  text-transform: capitalize;
 `;
 
 export const Text12 = styled(Text)<{ color?: string }>`
