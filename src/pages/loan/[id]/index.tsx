@@ -20,6 +20,7 @@ import { BaseCard } from '@/components/Base/Card';
 import { InfoTooltip } from '@/components/Tooltip';
 import ActionHistory from '@/sections/Positions/ActionHistory';
 import ActionCard from '@/sections/Positions/ActionCard';
+import ActionPanel from '@/components/ActionPanel';
 
 const Cell = ({
   width = `100%`,

@@ -5,6 +5,7 @@ import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { ChevronDown } from 'react-feather';
 import { FlexRowCentered, FlexCenter } from '@/components/Base/Div';
 import { InfoTooltip } from '@/components/Tooltip';
+import ActionPanel from '@/components/ActionPanel';
 
 const ActionCard = () => {
   const actions = [`borrow`, `repay`, `deposit`, `withdraw`, `close`];
@@ -37,6 +38,7 @@ const ActionCard = () => {
         <Text fontWeight={700}>Borrow</Text>
         <InfoTooltip content="hello world" />
       </SubHeader>
+      <ActionPanel />
     </Container>
   );
 };
