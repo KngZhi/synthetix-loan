@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Text12, Text, SubText } from '@/components/Base/Text';
 import { FlexRowCentered, FlexCol } from '@/components/Base/Div';
 import Table from '@/components/Table/ReactTable';
-import { makeData } from '@/components/Table/makeData';
+import { makeData, makePerson } from '@/components/Table/makeData';
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -31,7 +31,7 @@ const AmountCell = ({
 };
 
 const PositionTable = (): JSX.Element => {
-  const [data, setData] = useState(() => makeData(5));
+  const [data, setData] = useState(() => makePerson());
   const columns = [
     {
       accessor: `loan`,

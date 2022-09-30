@@ -1,9 +1,9 @@
-import { Text30, Text16, Text12, SideText } from '@/components/Base/Text';
+import { Text16, Text12, SideText } from '@/components/Base/Text';
 import { BaseCard } from '@/components/Base/Card';
 import styled from 'styled-components';
-import { Flex, FlexCol, FlexItemsCenter, FlexRow } from '@/components/Base/Div';
+import { Flex, FlexCol, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
-import { ArrowDown, ChevronDown } from 'react-feather';
+import { ChevronDown } from 'react-feather';
 import ActionButton from '@/components/ActionButton';
 import Slider from '@/components/Slider';
 import type { TokenInterface } from '@/constants/tokens';
@@ -102,14 +102,6 @@ const Balance = styled(FlexCol)`
   align-items: flex-end;
 `;
 
-const IconArrow = styled(FlexItemsCenter)`
-  border: 1px solid ${({ theme }) => theme.colors.gray900};
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin: 0 auto;
-  margin-bottom: 26px;
-`;
 type RatioRowProps = {
   lText: string;
   rText: string;

@@ -50,6 +50,10 @@ export function makeData(func, number = 5) {
   return makeDataLevel();
 }
 
+export function makePerson() {
+  return makeData(newPerson, 5);
+}
+
 export function makeActions(number = 5) {
   return makeData(action, number);
 }

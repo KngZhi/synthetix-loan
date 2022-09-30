@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { Text12, Text, SubText, Text18 } from '@/components/Base/Text';
 import { FlexRowCentered, FlexCol, FlexRow, Flex } from '@/components/Base/Div';
 import Table from '@/components/Table/ReactTable';
-import { makeData } from '@/components/Table/makeData';
+import { makeData, makePerson } from '@/components/Table/makeData';
 import { useState } from 'react';
 import { useBoolean } from 'usehooks-ts';
 import { ChevronDown } from 'react-feather';
@@ -27,7 +27,7 @@ const TogglePanel = () => {
 };
 
 const PositionTable = (): JSX.Element => {
-  const [data, setData] = useState(() => makeData(5));
+  const [data, setData] = useState(() => makePerson(5));
   const columns = [
     {
       accessor: `loan`,
