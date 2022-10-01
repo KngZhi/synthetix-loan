@@ -12,6 +12,7 @@ import Percent from '@/assets/png/stats/percent.png';
 import Chart from '@/assets/png/stats/chart.png';
 import Clock from '@/assets/png/stats/clock.png';
 import Earn from '@/assets/png/stats/earn2.png';
+import OpenInterestTable from '@/sections/Stats/OpenInterestTable';
 
 const PositionPage = (): JSX.Element => {
   return (
@@ -21,7 +22,7 @@ const PositionPage = (): JSX.Element => {
       </Head>
       <Layout>
         <Title>Stats</Title>
-        <Container>
+        <Container gap={24}>
           <LeftPanel>
             <Flex gap={16}>
               <StatCard
@@ -58,7 +59,9 @@ const PositionPage = (): JSX.Element => {
               />
             </Flex>
           </LeftPanel>
-          <RightPanel></RightPanel>
+          <RightPanel>
+            <OpenInterestTable />
+          </RightPanel>
         </Container>
       </Layout>
     </>
@@ -74,7 +77,7 @@ const LeftPanel = styled(FlexCol)`
 const RightPanel = styled.div`
   width: 322px;
 `;
-const Container = styled(FlexRow)``;
+const Container = styled(Flex)``;
 
 const StatCard = ({
   width,
@@ -93,7 +96,7 @@ const StatCard = ({
         <Image src={src} alt="image" />
       </div>
       <Text12>{title}</Text12>
-      <Text size={20} color="rgba(255, 255, 255, 0.64)">
+      <Text lineHeight="150%" size={20} color="rgba(255, 255, 255, 0.64)">
         {subtitle}
       </Text>
     </StatsCard>

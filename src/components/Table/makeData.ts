@@ -57,3 +57,17 @@ export function makePerson() {
 export function makeActions(number = 5) {
   return makeData(action, number);
 }
+
+export function makeInterest() {
+  const size = faker.datatype.number(40000);
+  const interest = () => {
+    return {
+      key: `sUSD`,
+      name: `sUSD`,
+      fullName: `Synth USD`,
+      size,
+      amount: size * 1.01,
+    };
+  };
+  return makeData(interest, 5);
+}
