@@ -13,7 +13,7 @@ const PendingWithdrawals = () => {
   const columns = [
     {
       accessor: `number`,
-      Cell: (props) => (
+      Cell: (props: any) => (
         <LoanCell>
           <Text size={14}>{`Loan #${props.row.original.number}`}</Text>
           <Text size={12} color={`#9999ac`}>
@@ -26,7 +26,7 @@ const PendingWithdrawals = () => {
     {
       width: `unset`,
       accessor: `amount`,
-      Cell: (props) => (
+      Cell: (props: any) => (
         <AmountCell>
           <Text size={14}>{`${props.row.original.amount} ETH`}</Text>
         </AmountCell>

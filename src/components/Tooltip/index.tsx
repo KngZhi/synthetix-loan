@@ -23,9 +23,15 @@ const TooltipContent = styled.div`
   }
 `;
 
-export const InfoTooltip = (props) => {
-  const { content, ...restProps } = props;
+type InfoTooltipType = {
+  content: string;
+};
+
+export const InfoTooltip = (props: InfoTooltipType) => {
+  const { content } = props;
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <Tooltip
       html={<TooltipContent>{content}</TooltipContent>}
       position="top"

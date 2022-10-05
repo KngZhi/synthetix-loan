@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Flex, FlexCol, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
 import { ChevronDown } from 'react-feather';
-import ActionButton from '@/components/ActionButton';
+// import ActionButton from '@/components/ActionButton';
 import Slider from '@/components/Slider';
 import type { TokenInterface } from '@/constants/tokens';
 import { sUSD, ETH } from '@/constants/tokens';
@@ -36,7 +36,7 @@ const ActionPanel = () => {
         <SeparateLine />
         <RatioRow lText="Gas Price(GWEI)" rText="Tx Cost: 0.0009 E ≠ $8.00" />
       </InfoCard>
-      <ActionButton />
+      {/* <ActionButton /> */}
     </>
   );
 };

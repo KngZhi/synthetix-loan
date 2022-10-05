@@ -12,7 +12,7 @@ const TogglePanel = () => {
   const { value: isActive, toggle } = useBoolean(true);
   return (
     <Container active={isActive}>
-      <TitlePanel onClick={() => toggle(!isActive)}>
+      <TitlePanel active={isActive} onClick={() => toggle()}>
         <FlexRowCentered>
           <Text size={20}>Loan History</Text>
           <Number>9</Number>
@@ -27,62 +27,65 @@ const TogglePanel = () => {
 };
 
 const PositionTable = (): JSX.Element => {
-  const [data, setData] = useState(() => makePerson(5));
-  const columns = [
-    {
-      accessor: `loan`,
-      Cell: (props) => <LoanCell loan={props.row.original.amount} />,
-      Header: <HeaderText>Loan</HeaderText>,
-      width: 126,
-      sortable: true,
-    },
-    {
-      accessor: `amount`,
-      Cell: ({ row }) => (
-        <AmountCell
-          title={`${row.original.amount}`}
-          subtitle={row.original.collateral}
-        />
-      ),
-      Header: <HeaderText>Amount</HeaderText>,
-      width: 145,
-      sortable: true,
-    },
-    {
-      accessor: `cRatio`,
-      Cell: (props) => <Text size={14}>234%</Text>,
-      Header: <HeaderText>C-Ratio</HeaderText>,
-      width: 102,
-      sortable: true,
-    },
-    {
-      accessor: `liquidationPrice`,
-      Cell: ({ row }) => (
-        <AmountCell
-          title={row.original.liquidationPrice}
-          subtitle={`ETH Price: $4200`}
-        />
-      ),
-      Header: <HeaderText>Liquidation Price</HeaderText>,
-      width: 145,
-      sortable: true,
-    },
-    {
-      Cell: (props) => (
-        <InterestRate>
-          0.25%
-          <ManageButton>Manage</ManageButton>
-        </InterestRate>
-      ),
-      accessor: `interestRate`,
-      Header: <HeaderText>Interest Rate</HeaderText>,
-      sortable: true,
-      width: 245,
-    },
-    ,
-  ];
+  const [data, setData] = useState(() => makePerson());
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <Table
+      columns={[
+        {
+          accessor: `loan`,
+          Cell: (props: any) => <LoanCell loan={props.row.original.amount} />,
+          Header: <HeaderText>Loan</HeaderText>,
+          width: 126,
+          sortable: true,
+        },
+        {
+          accessor: `amount`,
+          Cell: ({ row }: any) => (
+            <AmountCell
+              title={`${row.original.amount}`}
+              subtitle={row.original.collateral}
+            />
+          ),
+          Header: <HeaderText>Amount</HeaderText>,
+          width: 145,
+          sortable: true,
+        },
+        {
+          accessor: `cRatio`,
+          Cell: (props: any) => <Text size={14}>234%</Text>,
+          Header: <HeaderText>C-Ratio</HeaderText>,
+          width: 102,
+          sortable: true,
+        },
+        {
+          accessor: `liquidationPrice`,
+          Cell: ({ row }: any) => (
+            <AmountCell
+              title={row.original.liquidationPrice}
+              subtitle={`ETH Price: $4200`}
+            />
+          ),
+          Header: <HeaderText>Liquidation Price</HeaderText>,
+          width: 145,
+          sortable: true,
+        },
+        {
+          Cell: (props: any) => (
+            <InterestRate>
+              0.25%
+              <ManageButton>Manage</ManageButton>
+            </InterestRate>
+          ),
+          accessor: `interestRate`,
+          Header: <HeaderText>Interest Rate</HeaderText>,
+          sortable: true,
+          width: 245,
+        },
+      ]}
+      data={data}
+    />
+  );
 };
 
 export default TogglePanel;

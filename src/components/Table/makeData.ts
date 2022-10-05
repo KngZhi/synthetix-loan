@@ -28,6 +28,12 @@ const newPerson = (): Person => {
   };
 };
 
+export type Action = {
+  type: string;
+  amount: number;
+  date: string;
+};
+
 const action = () => {
   return {
     type: `deposit`,
@@ -36,6 +42,8 @@ const action = () => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export function makeData(func, number = 5) {
   const makeDataLevel = (depth = 0): Person[] => {
     const len = number;

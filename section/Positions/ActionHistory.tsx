@@ -2,17 +2,17 @@ import styled, { css } from 'styled-components';
 import { Text12, Text, SubText, Text18 } from '@/components/Base/Text';
 import { FlexRowCentered, FlexCol, FlexRow, Flex } from '@/components/Base/Div';
 import Table from '@/components/Table/ReactTable';
-import { makeActions } from '@/components/Table/makeData';
+import { makeActions, Action } from '@/components/Table/makeData';
 import { useState } from 'react';
 import { useBoolean } from 'usehooks-ts';
 import { ChevronDown, ArrowDown, ArrowUp, ArrowRight } from 'react-feather';
-import { DualCurrencyIcon } from '@/components/Currency/CurrencyIcon';
+import { CellProps } from 'react-table';
 
 const TogglePanel = () => {
   const { value: isActive, toggle } = useBoolean(true);
   return (
     <Container active={isActive}>
-      <TitlePanel onClick={() => toggle(!isActive)}>
+      <TitlePanel active={isActive} onClick={() => toggle()}>
         <FlexRowCentered>
           <Text size={20}>Action History</Text>
           <Number>9</Number>
@@ -26,35 +26,41 @@ const TogglePanel = () => {
   );
 };
 
-const ActionHistoryTable = (): JSX.Element => {
+const ActionHistoryTable = () => {
   const [data, setData] = useState(() => makeActions());
 
-  const columns = [
-    {
-      accessor: `type`,
-      Cell: (props) => <ActionType type={props.row.original.type} />,
-      Header: <HeaderText>Loan</HeaderText>,
-      width: 126,
-      sortable: true,
-    },
-    {
-      accessor: `amount`,
-      Cell: ({ row }) => <Text>{row.original.amount}</Text>,
-      Header: <HeaderText>Amount</HeaderText>,
-      width: 145,
-      sortable: true,
-    },
-    {
-      accessor: `date`,
-      Cell: ({ row }) => <Text size={14}>{row.original.date}</Text>,
-      Header: <HeaderText>C-Ratio</HeaderText>,
-      width: 102,
-      sortable: true,
-    },
-    ,
-  ];
-
-  return <Table columns={columns} data={data} />;
+  return (
+    <Table
+      columns={[
+        {
+          accessor: `type`,
+          Cell: (props: any) => {
+            return <ActionType type={props.row.original.type} />;
+          },
+          Header: <HeaderText>Loan</HeaderText>,
+          width: 126,
+          sortable: true,
+        },
+        {
+          accessor: `amount`,
+          Cell: ({ row }: any) => <Text>{row.original.amount}</Text>,
+          Header: <HeaderText>Amount</HeaderText>,
+          width: 145,
+          sortable: true,
+        },
+        {
+          accessor: `date`,
+          Cell: (props: any) => (
+            <Text size={14}>{props.row.original.date}</Text>
+          ),
+          Header: <HeaderText>C-Ratio</HeaderText>,
+          width: 102,
+          sortable: true,
+        },
+      ]}
+      data={data}
+    />
+  );
 };
 
 export default TogglePanel;

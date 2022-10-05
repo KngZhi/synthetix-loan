@@ -19,11 +19,11 @@ const CARD_HEIGHT = `71px`;
 const MAX_PAGE_ROWS = 100;
 const MAX_TOTAL_ROWS = 1000;
 
-type ColumnWithSorting<D extends Record<string, any>> = Column<D> & {
-  sortType?: string | ((rowA: Row<any>, rowB: Row<any>) => -1 | 1);
-  sortable?: boolean;
-  columns?: Column[];
-};
+type ColumnWithSorting<D extends object = Record<string, unknown>> =
+  Column<D> & {
+    sortType?: string | ((rowA: Row<any>, rowB: Row<any>) => -1 | 1);
+    sortable?: boolean;
+  };
 
 type TableProps = {
   palette?: TablePalette;
@@ -66,7 +66,7 @@ export const Table: FC<TableProps> = ({
   sortBy = [],
   lastRef = null,
   cardHeight = CARD_HEIGHT,
-  headerHeight = undefined,
+  headerHeight,
 }) => {
   const memoizedColumns = useMemo(
     () => columns,
@@ -74,19 +74,26 @@ export const Table: FC<TableProps> = ({
     columnsDeps,
   );
 
-  // TODO: How do I tell Typescript about the usePagination props?
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    page,
     prepareRow,
+    //@ts-ignore
+    page,
+    //@ts-ignore
     canPreviousPage,
+    //@ts-ignore
     canNextPage,
+    //@ts-ignore
     pageCount,
+    //@ts-ignore
     gotoPage,
+    //@ts-ignore
     nextPage,
+    //@ts-ignore
     previousPage,
+    //@ts-ignore
     state: { pageIndex },
     setHiddenColumns,
   } = useTable(
@@ -275,7 +282,7 @@ export const TableNoResults = styled(GridDivCenteredRow)`
 const ReactTable = styled.div<{
   palette: TablePalette;
   cardHeight: string;
-  headerHeight: string;
+  headerHeight?: number;
 }>`
   width: 100%;
   height: 100%;

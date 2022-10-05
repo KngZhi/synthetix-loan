@@ -5,7 +5,6 @@ specifiers:
   '@commitlint/config-conventional': 17.1.0
   '@faker-js/faker': 7.5.0
   '@synthetixio/contracts-interface': 2.76.3
-  '@tanstack/react-table': 8.5.13
   '@types/node': 16.11.58
   '@types/react': 18.0.19
   '@types/react-dom': 18.0.6
@@ -50,8 +49,6 @@ specifiers:
 dependencies:
   '@faker-js/faker': 7.5.0
   '@synthetixio/contracts-interface': 2.76.3
-  '@tanstack/react-table': 8.5.13_biqbaboplfbrettd7655fr4n2y
-  '@types/react-table': 7.0.22
   '@types/styled-components': 5.1.26
   '@web3-onboard/coinbase': 2.1.2
   '@web3-onboard/core': 2.8.3
@@ -83,6 +80,7 @@ devDependencies:
   '@types/node': 16.11.58
   '@types/react': 18.0.19
   '@types/react-dom': 18.0.6
+  '@types/react-table': 7.0.22
   '@typescript-eslint/eslint-plugin': 5.36.2_2l2r3i3lm6jysqd4ac3ql4n2mm
   '@typescript-eslint/parser': 5.36.2_itqs5654cmlnjraw6gjzqacppi
   eslint: 8.23.0
@@ -2056,23 +2054,6 @@ packages:
     resolution: {integrity: sha512-HiGon0A/uPcJPlBUeon/k74el8X0xVPfnRgN2+JsWU/79jfJ+HqFMWl1IjMvDXY0sOi+yz0A01IFR9OSojuUzA==}
     dev: false
 
-  /@tanstack/react-table/8.5.13_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-k52HsnonKwDZMCIy59HfehTnkJYlqkqyvC+BAV0DyWdN9WmSbVq+Kf+luJVENQnXcnEX47dBHiHAjqZu592ZLQ==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/table-core': 8.5.13
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /@tanstack/table-core/8.5.13:
-    resolution: {integrity: sha512-kvDRjC7LrLNNNgUMfsBz3nHOwbBLFdosWQ16dfbD9D/OJrvFHRXoUIPzF0MNqqSPghaj7/18fnwXHGypvzoh9Q==}
-    engines: {node: '>=12'}
-    dev: false
-
   /@toruslabs/eccrypto/1.1.8:
     resolution: {integrity: sha512-5dIrO2KVqvnAPOPfJ2m6bnjp9vav9GIcCZXiXRW/bJuIDRLVxJhVvRlleF4oaEZPq5yX5piHq5jVHagNNS0jOQ==}
     requiresBuild: true
@@ -2279,7 +2260,7 @@ packages:
     resolution: {integrity: sha512-RAzjB7Udv23QPuIuNNRn8VBldmcFobqpNqLWXh0FXVVyIye76muzfn01WZdcTIEfmQjHts7bjJSQQVabLQgTcA==}
     dependencies:
       '@types/react': 18.0.19
-    dev: false
+    dev: true
 
   /@types/react/18.0.19:
     resolution: {integrity: sha512-BDc3Q+4Q3zsn7k9xZrKfjWyJsSlEDMs38gD1qp2eDazLCdcPqAT+vq1ND+Z8AGel/UiwzNUk8ptpywgNQcJ1MQ==}

@@ -35,14 +35,16 @@ const PositionTable = (): JSX.Element => {
   const columns = [
     {
       accessor: `loan`,
-      Cell: (props) => <Text size={14}>{`#${props.row.original.loan}`}</Text>,
+      Cell: (props: any) => (
+        <Text size={14}>{`#${props.row.original.loan}`}</Text>
+      ),
       Header: <HeaderText>Loan</HeaderText>,
       width: 126,
       sortable: true,
     },
     {
       accessor: `amount`,
-      Cell: ({ row }) => (
+      Cell: ({ row }: any) => (
         <AmountCell
           title={`${row.original.amount} sUSD`}
           subtitle={`Collateral: ${row.original.collateral} sMKR`}
@@ -54,14 +56,14 @@ const PositionTable = (): JSX.Element => {
     },
     {
       accessor: `cRatio`,
-      Cell: (props) => <Text size={14}>234%</Text>,
+      Cell: (props: any) => <Text size={14}>234%</Text>,
       Header: <HeaderText>C-Ratio</HeaderText>,
       width: 102,
       sortable: true,
     },
     {
       accessor: `liquidationPrice`,
-      Cell: ({ row }) => (
+      Cell: ({ row }: any) => (
         <AmountCell
           title={row.original.liquidationPrice}
           subtitle={`ETH Price: $4200`}
@@ -72,7 +74,7 @@ const PositionTable = (): JSX.Element => {
       sortable: true,
     },
     {
-      Cell: (props) => (
+      Cell: (props: any) => (
         <InterestRate>
           0.25%
           <ManageButton>
@@ -85,7 +87,6 @@ const PositionTable = (): JSX.Element => {
       sortable: true,
       width: 245,
     },
-    ,
   ];
 
   return <Table columns={columns} data={data} />;

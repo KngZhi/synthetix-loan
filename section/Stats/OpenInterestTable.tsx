@@ -13,7 +13,7 @@ const OpenInterestTable = () => {
   const columns = [
     {
       accessor: `key`,
-      Cell: ({ row }) => (
+      Cell: ({ row }: any) => (
         <AssetCell>
           <CurrencyIcon currencyKey={row.original.key} sizes={40} />
           <div>
@@ -27,7 +27,7 @@ const OpenInterestTable = () => {
       width: 278,
     },
     {
-      Cell: ({ row }) => (
+      Cell: ({ row }: any) => (
         <AmountCell>
           <Text size={14}>{row.original.size}</Text>
           <Text size={12} color="#9999AC">
@@ -39,7 +39,6 @@ const OpenInterestTable = () => {
       Header: <HeaderText>Interest Rate</HeaderText>,
       sortable: true,
     },
-    ,
   ];
 
   return (

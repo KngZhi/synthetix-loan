@@ -28,8 +28,6 @@
   "dependencies": {
     "@faker-js/faker": "7.5.0",
     "@synthetixio/contracts-interface": "2.76.3",
-    "@tanstack/react-table": "8.5.13",
-    "@types/react-table": "7.0.22",
     "@types/styled-components": "5.1.26",
     "@web3-onboard/coinbase": "2.1.2",
     "@web3-onboard/core": "2.8.3",
@@ -61,6 +59,7 @@
     "@types/node": "16.11.58",
     "@types/react": "18.0.19",
     "@types/react-dom": "18.0.6",
+    "@types/react-table": "7.0.22",
     "@typescript-eslint/eslint-plugin": "5.36.2",
     "@typescript-eslint/parser": "5.36.2",
     "eslint": "8.23.0",
