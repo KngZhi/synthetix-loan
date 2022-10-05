@@ -83,7 +83,7 @@ const CurrencyIcon = ({
   };
   const size = `${sizes || 16}px`;
 
-  return <Image {...props} width={size} height={size} />;
+  return <Image {...props} width={size} height={size} alt={currencyKey} />;
 };
 
 type DualCurrencyIconType = {

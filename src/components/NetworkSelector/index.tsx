@@ -100,7 +100,6 @@ const NetworkSelector: FC<NetworkSelectorProps> = ({
   // const { isWalletConnected, network } = useConnectorContext();
   // const [{ connectedChain }, setChain] = useSetChain();
 
-  // console.log(activeNetwork, network, connectedChain)
   // useEffect(() => {
   //   if (network) {
   //     const chain = SupportedChains.find(

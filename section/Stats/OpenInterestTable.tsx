@@ -9,7 +9,6 @@ import { FlexRow, Flex, FlexCol } from '@/components/Base/Div';
 
 const OpenInterestTable = () => {
   const [data, setData] = useState(() => makeInterest());
-  console.log(data);
   const columns = [
     {
       accessor: `key`,

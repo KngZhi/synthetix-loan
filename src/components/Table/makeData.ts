@@ -53,8 +53,6 @@ export function makeData(func, number = 5) {
       };
     });
   };
-  console.log(makeDataLevel());
-
   return makeDataLevel();
 }
 
