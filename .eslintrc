@@ -1,38 +1,13 @@
 {
-  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "prettier"
+  ],
   "extends": [
     "next",
     "next/core-web-vitals",
-    "plugin:@next/next/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "plugins": [
-    "@typescript-eslint",
     "prettier"
   ],
   "rules": {
-    "max-lines": [
-      "error",
-      600
-    ],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "no-use-before-define": "off",
-    "react/jsx-key": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/quotes": [
-      2,
-      "backtick",
-      {
-        "avoidEscape": true
-      }
-    ],
     "prettier/prettier": "error",
     "camelcase": "off",
     "import/prefer-default-export": "off",
@@ -40,9 +15,16 @@
     "react/jsx-props-no-spreading": "off",
     "react/no-unused-prop-types": "off",
     "react/require-default-props": "off",
+    "react/jsx-key": "off",
     "import/extensions": [
       "error",
-      "never"
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
+      }
     ],
     "quotes": "off",
     "jsx-a11y/anchor-is-valid": [
@@ -61,5 +43,37 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": "**/*.+(ts|tsx)",
+      "parser": "@typescript-eslint/parser",
+      "plugins": [
+        "@typescript-eslint/eslint-plugin"
+      ],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+      ],
+      "rules": {
+        // "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "no-use-before-define": [
+          0
+        ],
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/quotes": [
+          2,
+          "backtick",
+          {
+            "avoidEscape": true
+          }
+        ]
+      }
+    }
+  ]
 }
