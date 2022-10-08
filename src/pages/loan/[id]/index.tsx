@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Layout from '@/components/layout';
 import Head from 'next/head';
 import { Title, Text } from '@/components/Base/Text';
 import {
   Flex,
-  FlexColCentered,
   FlexCol,
   FlexCenter,
   FlexRowCentered,
@@ -20,7 +18,6 @@ import { BaseCard } from '@/components/Base/Card';
 import { InfoTooltip } from '@/components/Tooltip';
 import ActionHistory from '@/sections/Positions/ActionHistory';
 import ActionCard from '@/sections/Positions/ActionCard';
-import ActionPanel from '@/components/ActionPanel';
 
 const Cell = ({
   width = `100%`,

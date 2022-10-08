@@ -22,7 +22,6 @@ import JPYIcon from 'assets/png/currencies/sJPY.png';
 import KRWIcon from 'assets/png/currencies/sKRW.png';
 import LINKIcon from 'assets/png/currencies/sLINK.png';
 import MATICIcon from 'assets/png/currencies/sMATIC.png';
-import SNXIcon from 'assets/png/currencies/SNX.png';
 import OILIcon from 'assets/png/currencies/sOIL.png';
 import SOLIcon from 'assets/png/currencies/sSOL.png';
 import UNIIcon from 'assets/png/currencies/sUNI.png';

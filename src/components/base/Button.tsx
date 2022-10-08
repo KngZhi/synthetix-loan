@@ -15,6 +15,7 @@ const BaseButton = styled.button`
 `;
 
 const NetWorkButton = styled(BaseButton)`
+  color: ${({ theme }) => theme.colors.white};
   background: ${({ theme }) => theme.colors.bgNavy};
   box-shadow: ${({ theme }) => theme.colors.header};
   gap: 5px;

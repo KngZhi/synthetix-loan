@@ -1,8 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import styled, { css } from 'styled-components';
 import Image, { StaticImageData } from 'next/image';
-import { useRecoilState } from 'recoil';
-import { useSetChain } from '@web3-onboard/react';
 
 import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { NetWorkButton, BaseButton } from '@/components/Base/Button';
@@ -12,7 +10,7 @@ import { NetWorkButton, BaseButton } from '@/components/Base/Button';
 import EthereumLogo from '@/assets/svg/ethereum.svg';
 import OptimismLogo from '@/assets/svg/optimism.svg';
 import DownArrow from '@/assets/svg/down-arrow.svg';
-import { Optimism, Ethereum, Chain, SupportedChains } from '@/constants/chains';
+import { Optimism, Ethereum, SupportedChains } from '@/constants/chains';
 // import { useConnectorContext } from 'connector/Connector';
 
 const NETWORK_ICON = {
