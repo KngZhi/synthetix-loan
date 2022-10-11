@@ -26,6 +26,7 @@ specifiers:
   '@web3-onboard/torus': 2.1.2
   '@web3-onboard/trezor': 2.3.0
   '@web3-onboard/walletconnect': 2.1.2
+  currency.js: ^2.0.4
   dotenv: 16.0.2
   eslint: 8.23.0
   eslint-config-next: 12.3.0
@@ -42,6 +43,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-feather: 2.0.10
+  react-ga4: ^1.4.1
   react-jazzicon: 1.0.4
   react-table: 7.7.0
   react-tippy: 1.4.0
@@ -69,6 +71,7 @@ dependencies:
   '@web3-onboard/torus': 2.1.2
   '@web3-onboard/trezor': 2.3.0
   '@web3-onboard/walletconnect': 2.1.2
+  currency.js: 2.0.4
   dotenv: 16.0.2
   ethers: 5.7.1
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
@@ -76,6 +79,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-feather: 2.0.10_react@18.2.0
+  react-ga4: 1.4.1
   react-jazzicon: 1.0.4_biqbaboplfbrettd7655fr4n2y
   react-table: 7.7.0_react@18.2.0
   react-tippy: 1.4.0
@@ -3904,6 +3908,11 @@ packages:
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
 
+  /currency.js/2.0.4:
+    resolution: {integrity: sha512-6/OplJYgJ0RUlli74d93HJ/OsKVBi8lB1+Z6eJYS1YZzBuIp4qKKHpJ7ad+GvTlWmLR/hLJOWTykN5Nm8NJ7+w==}
+    engines: {node: '>=4'}
+    dev: false
+
   /d/1.0.1:
     resolution: {integrity: sha512-m62ShEObQ39CfralilEQRjH6oAMtNCV1xJyEx5LpRYUVN+EviphDgUc/F3hnYbADmkiNs67Y+3ylmlG7Lnu+FA==}
     dependencies:
@@ -7254,6 +7263,10 @@ packages:
     dependencies:
       prop-types: 15.8.1
       react: 18.2.0
+    dev: false
+
+  /react-ga4/1.4.1:
+    resolution: {integrity: sha512-ioBMEIxd4ePw4YtaloTUgqhQGqz5ebDdC4slEpLgy2sLx1LuZBC9iYCwDymTXzcntw6K1dHX183ulP32nNdG7w==}
     dev: false
 
   /react-is/16.13.1:

@@ -24,7 +24,7 @@ const NetworkSelectorContainer = styled.div`
   margin-top: 44px;
   gap: 2px;
 
-  width: 160px;
+  width: 100%;
 
   border: 1px solid ${({ theme }) => theme.colors.gray900};
   border-radius: 5px;
@@ -40,7 +40,9 @@ const NetWorkSelectorButton = styled(BaseButton)<{ active?: boolean }>`
   gap: 5px;
   justify-content: flex-start;
   position: relative;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.bgNavy};
+  color: white;
+  font-weight: 700;
   ${({ active }) =>
     active &&
     css`

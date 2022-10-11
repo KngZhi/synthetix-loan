@@ -16,14 +16,18 @@ type DefaultDropdownMenuProps = {
 const DropdownContainer = styled.div`
   position: relative;
   display: grid;
+  width: 100%;
 `;
 
-const DropdownTrigger = styled.div``;
+const DropdownTrigger = styled.div`
+  width: 100%;
+`;
 const DropdownList = styled.div<{
   active: boolean;
   offset: number;
   leftOffset: number | string;
 }>`
+  width: 100%;
   display: grid;
   position: absolute;
   visibility: hidden;

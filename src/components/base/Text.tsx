@@ -6,10 +6,10 @@ export const Text = styled.span<{
   fontWeight?: number;
   lineHeight?: string;
 }>`
-  color: ${({ color, theme }) => color || theme.colors.white};
   font-size: ${({ size }) => size || 12}px;
   ${({ fontWeight }) => fontWeight && `font-weight: ${fontWeight};`}
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight};`}
+  ${({ color }) => color && `color: ${color};`}
   text-transform: capitalize;
 `;
 

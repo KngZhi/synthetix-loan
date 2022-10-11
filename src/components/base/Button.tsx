@@ -20,7 +20,7 @@ const NetWorkButton = styled(BaseButton)`
   box-shadow: ${({ theme }) => theme.colors.header};
   gap: 5px;
 
-  width: 160px;
+  width: 100%;
   height: 44px;
 
   span {
