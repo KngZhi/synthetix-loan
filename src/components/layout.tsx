@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 import SvgLogo from '@/assets/svg/synthetix.svg';
 import Image from 'next/image';
@@ -59,6 +61,12 @@ const Main = styled.main`
 `;
 
 export default function Layout({ children }: LayoutProps) {
+  const { asPath } = useRouter();
+  const ROUTES = [
+    { label: `Borrow`, href: `/`, isActive: false },
+    { label: `Positions`, href: `/position`, isActive: false },
+    { label: `Stats`, href: `/stats`, isActive: false },
+  ];
   return (
     <>
       <Header>
@@ -68,9 +76,16 @@ export default function Layout({ children }: LayoutProps) {
             <span>Loans</span>
           </Logo>
           <TabBar>
-            <Tab selected={true}>Borrow</Tab>
-            <Tab>Positions</Tab>
-            <Tab>Stats</Tab>
+            {ROUTES.map((route) => {
+              const { href } = route;
+              const linkBase = href.split(`/`)[1];
+              const isActive = linkBase === asPath.split(`/`)[1];
+              return (
+                <Tab selected={isActive}>
+                  <Link href={route.href}>{route.label}</Link>
+                </Tab>
+              );
+            })}
           </TabBar>
         </Flex>
         <Right>
