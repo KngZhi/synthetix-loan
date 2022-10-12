@@ -8,12 +8,13 @@ import { GasSpeed } from '@synthetixio/queries';
 import { atom, selector } from 'recoil';
 
 import { getWalletKey } from '../utils';
+import { Network } from '@/constants/network';
 
-export type Network = {
-  id: NetworkId;
-  name: NetworkName;
-  useOvm?: boolean;
-};
+// export type Network = {
+//   id: NetworkId;
+//   name: NetworkName;
+//   useOvm?: boolean;
+// };
 
 export const networkState = atom<Network>({
   key: getWalletKey(`network`),

@@ -16,7 +16,6 @@ type DefaultDropdownMenuProps = {
 const DropdownContainer = styled.div`
   position: relative;
   display: grid;
-  width: 100%;
 `;
 
 const DropdownTrigger = styled.div`

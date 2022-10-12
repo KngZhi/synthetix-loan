@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { AddrButton } from '@/components/Base/Button';
 import { useBoolean } from 'usehooks-ts';
 import { truncateAddress } from '@/utils/string';
@@ -23,7 +24,7 @@ const Wallet = () => {
     connectWallet();
   };
   return (
-    <>
+    <Container>
       {walletAddress ? (
         <AddrButton onClick={setTrue}>
           <span className="dot"></span>
@@ -43,8 +44,12 @@ const Wallet = () => {
         chainId={network?.id}
         changeWallet={changeWallet}
       />
-    </>
+    </Container>
   );
 };
 
 export default Wallet;
+
+const Container = styled.div`
+  width: 160px;
+`;

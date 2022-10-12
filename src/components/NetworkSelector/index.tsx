@@ -1,17 +1,18 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Image, { StaticImageData } from 'next/image';
 
 import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { NetWorkButton, BaseButton } from '@/components/Base/Button';
 
-// import { networkState } from '../store/index';
-
+import { Network, networkState } from '@/store/wallet';
+import { useRecoilState } from 'recoil';
 import EthereumLogo from '@/assets/svg/ethereum.svg';
 import OptimismLogo from '@/assets/svg/optimism.svg';
 import DownArrow from '@/assets/svg/down-arrow.svg';
 import { Optimism, Ethereum, SupportedChains } from '@/constants/chains';
-// import { useConnectorContext } from 'connector/Connector';
+import Connector from '@/containers/connector';
+import type { Chain } from '@/constants/chains';
 
 const NETWORK_ICON = {
   [Ethereum.id]: EthereumLogo,
@@ -95,34 +96,39 @@ const NetworkSelector: FC<NetworkSelectorProps> = ({
   dropdownCls,
   containerCls,
 }) => {
-  // const [activeNetwork, setActiveNetwork] = useRecoilState(networkState);
+  const [activeNetwork, setActiveNetwork] = useRecoilState(networkState);
 
-  // const { isWalletConnected, network } = useConnectorContext();
-  // const [{ connectedChain }, setChain] = useSetChain();
+  const { isWalletConnected, network, switchNetwork } =
+    Connector.useContainer();
 
-  // useEffect(() => {
-  //   if (network) {
-  //     const chain = SupportedChains.find(
-  //       (chain) => Number(chain.id) === network.id,
-  //     ) as Chain;
-  //     setActiveNetwork(chain);
-  //   }
-  // }, [network, setActiveNetwork]);
+  const onSwitchChain = async (chain: Chain) => {
+    if (isWalletConnected) {
+      try {
+        const isSuccess = await switchNetwork(chain.id);
+        if (isSuccess) {
+          setActiveNetwork(chain);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setActiveNetwork(chain);
+    }
+  };
 
-  // const onSwitchChain = async (chain: Chain) => {
-  //   if (isWalletConnected) {
-  //     try {
-  //       const isSuccess = await setChain({ chainId: chain.id });
-  //       if (isSuccess) {
-  //         setActiveNetwork(chain);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   } else {
-  //     setActiveNetwork(chain);
-  //   }
-  // };
+  useEffect(() => {
+    if (network) {
+      const chain = SupportedChains.find(
+        (chain) => Number(chain.id) === network.id,
+      ) as Chain;
+      setActiveNetwork({
+        id: chain.id,
+        name: chain.name,
+        label: chain.label,
+        useOvm: chain.id !== 1,
+      } as Network);
+    }
+  }, [network, setActiveNetwork]);
 
   return (
     <DefaultDropdownMenu
@@ -134,11 +140,11 @@ const NetworkSelector: FC<NetworkSelectorProps> = ({
         <NetWorkButton>
           <Image
             style={{ marginRight: `5px` }}
-            src={NETWORK_ICON[10]}
-            alt={Optimism.label}
+            src={NETWORK_ICON[activeNetwork.id]}
+            alt={activeNetwork.label}
             priority={true}
           />
-          <span>{Optimism.label}</span>
+          <span>{activeNetwork.label}</span>
           <Image src={DownArrow} alt="down-arrow" priority={true} />
         </NetWorkButton>
       }
@@ -147,8 +153,8 @@ const NetworkSelector: FC<NetworkSelectorProps> = ({
           {SupportedChains.map((chain) => (
             <NetworkButton
               src={NETWORK_ICON[chain.id]}
-              onClick={() => console.log(`hello world`)}
-              isActive={chain.id === Optimism?.id}
+              onClick={() => onSwitchChain(chain)}
+              isActive={chain.id === activeNetwork.id}
               key={chain.id}
               name={chain.label}
             />

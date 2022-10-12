@@ -47,6 +47,11 @@ const Tab = styled(Text16)<{
 const TabBar = styled(Flex)``;
 const Right = styled(Flex)`
   gap: 18px;
+  .layout-network {
+    div {
+      width: 160px;
+    }
+  }
 `;
 
 const Main = styled.main`
@@ -69,7 +74,7 @@ export default function Layout({ children }: LayoutProps) {
           </TabBar>
         </Flex>
         <Right>
-          <NetworkSelector />
+          <NetworkSelector containerCls="layout-network" />
           <Wallet />
         </Right>
       </Header>
