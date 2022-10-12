@@ -1,24 +1,20 @@
 import {
-  NetworkId,
   NetworkIdByName,
   NetworkNameById,
-  NetworkName,
 } from '@synthetixio/contracts-interface';
 import { GasSpeed } from '@synthetixio/queries';
 import { atom, selector } from 'recoil';
 
 import { getWalletKey } from '../utils';
-import { Network } from '@/constants/network';
-
-// export type Network = {
-//   id: NetworkId;
-//   name: NetworkName;
-//   useOvm?: boolean;
-// };
+import { Network, NetworkLabelById } from '@/constants/network';
 
 export const networkState = atom<Network>({
   key: getWalletKey(`network`),
-  default: { id: NetworkIdByName[`mainnet-ovm`], name: NetworkNameById[10] },
+  default: {
+    id: NetworkIdByName[`mainnet-ovm`],
+    name: NetworkNameById[10],
+    label: NetworkLabelById[10],
+  },
 });
 
 export const gasSpeedState = atom<GasSpeed>({

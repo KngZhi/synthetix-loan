@@ -3,6 +3,7 @@ import { BaseButton } from '@/components/Base/Button';
 
 const ConnectWalletButton = styled(BaseButton)`
   width: 160px;
+  height: 44px;
   white-space: nowrap;
   color: white;
 
