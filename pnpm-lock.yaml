@@ -6,9 +6,10 @@ specifiers:
   '@faker-js/faker': 7.5.0
   '@synthetixio/contracts-interface': 2.76.3
   '@synthetixio/providers': ^2.74.11
-  '@synthetixio/queries': ^3.0.12
+  '@synthetixio/queries': 3.0.10
   '@synthetixio/transaction-notifier': ^2.74.13
   '@synthetixio/wei': ^2.74.4
+  '@tanstack/react-query': ^4.10.3
   '@types/node': 16.11.58
   '@types/react': 18.0.19
   '@types/react-dom': 18.0.6
@@ -58,9 +59,10 @@ dependencies:
   '@faker-js/faker': 7.5.0
   '@synthetixio/contracts-interface': 2.76.3
   '@synthetixio/providers': 2.74.11
-  '@synthetixio/queries': 3.0.12_biqbaboplfbrettd7655fr4n2y
+  '@synthetixio/queries': 3.0.10_ih7aneap6ztcpwpglrcyifqupq
   '@synthetixio/transaction-notifier': 2.74.13
   '@synthetixio/wei': 2.74.4
+  '@tanstack/react-query': 4.10.3_biqbaboplfbrettd7655fr4n2y
   '@types/styled-components': 5.1.26
   '@web3-onboard/coinbase': 2.1.2
   '@web3-onboard/core': 2.5.0
@@ -1622,14 +1624,6 @@ packages:
       - encoding
     dev: false
 
-  /@graphql-typed-document-node/core/3.1.1_graphql@16.6.0:
-    resolution: {integrity: sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-    dependencies:
-      graphql: 16.6.0
-    dev: false
-
   /@hapi/hoek/9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
     dev: false
@@ -2059,8 +2053,8 @@ packages:
     resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
     dev: false
 
-  /@snapshot-labs/snapshot.js/0.4.36:
-    resolution: {integrity: sha512-PzjFirSj8/3AoZmA+NUxozKFSP1h89R94RIX2ty+cLpY9fSR+bKL/iyvp4lHmvFVApBLxTq6XW8zE5tdSkyLLg==}
+  /@snapshot-labs/snapshot.js/0.4.40:
+    resolution: {integrity: sha512-/6VHbDZANx36c4nMCiPrg3LR52jjysow+F/79lp7h8B3sNHMqHCTDmheBM6pTguQ3+cCgfKLOrZn62C9laQW2A==}
     engines: {node: '>=14'}
     dependencies:
       '@ensdomains/eth-ens-namehash': 2.0.15
@@ -2146,6 +2140,14 @@ packages:
       lodash: 4.17.21
     dev: false
 
+  /@synthetixio/optimism-networks/2.74.4:
+    resolution: {integrity: sha512-YvPU9qsJliKCGEnm5gRRaM47nd5LZWwY1XdgepNkmq71OP+bQacLIq7n/H5VhTpjSF6nF9PM0cBBik4aKOxDEA==}
+    dependencies:
+      '@ethersproject/bignumber': 5.7.0
+      '@ethersproject/bytes': 5.7.0
+      '@metamask/providers': 8.1.1
+    dev: false
+
   /@synthetixio/optimism-networks/2.74.6:
     resolution: {integrity: sha512-sczSMdAXhWBrPoZLm7fnM3lLalopHoRQeu9eUdZAmojNs/8+34DzhCOirPoPVqewZzKCR4wmKOIXRsSXQgcA6w==}
     dependencies:
@@ -2169,12 +2171,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@synthetixio/queries/3.0.12_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-ytaFzukKt9RnXQxo8BPTvcUkRhMGd1OrsZo3qO7BOqRP+07DFtgbr05AgbOkRziAAlSttdoqMhPPdLaKRBclSA==}
+  /@synthetixio/queries/3.0.10_ih7aneap6ztcpwpglrcyifqupq:
+    resolution: {integrity: sha512-VK0BWo6kmjfUur6POUDst7x5/yMGr3E7MnZjYGVbkQr98elKmJ9WS2GDJotDLLmecrPbnjdQFRKGNqPfb6srMA==}
     peerDependencies:
-      '@tanstack/react-query': '4'
       react: '*'
       react-dom: '*'
+      react-query: 3.16.x
     dependencies:
       '@ethersproject/abstract-signer': 5.7.0
       '@ethersproject/address': 5.7.0
@@ -2185,19 +2187,20 @@ packages:
       '@ethersproject/strings': 5.7.0
       '@ethersproject/transactions': 5.7.0
       '@ethersproject/units': 5.7.0
-      '@snapshot-labs/snapshot.js': 0.4.36
+      '@snapshot-labs/snapshot.js': 0.4.40
       '@synthetixio/contracts': 1.1.5
       '@synthetixio/contracts-interface': 2.76.3
       '@synthetixio/generate-subgraph-query': 1.0.2
-      '@synthetixio/optimism-networks': 2.74.6
+      '@synthetixio/optimism-networks': 2.74.4
       '@synthetixio/wei': 2.74.4
       axios: 0.21.4
       date-fns: 2.29.3
-      graphql: 16.6.0
-      graphql-request: 5.0.0_graphql@16.6.0
+      graphql: 15.8.0
+      graphql-request: 3.7.0_graphql@15.8.0
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-query: 3.16.0_biqbaboplfbrettd7655fr4n2y
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2227,6 +2230,28 @@ packages:
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/bytes': 5.7.0
       big.js: 6.2.1
+    dev: false
+
+  /@tanstack/query-core/4.10.3:
+    resolution: {integrity: sha512-+ME02sUmBfx3Pjd+0XtEthK8/4rVMD2jcxvnW9DSgFONpKtpjzfRzjY4ykzpDw1QEo2eoPvl7NS8J5mNI199aA==}
+    dev: false
+
+  /@tanstack/react-query/4.10.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-4OEJjkcsCTmG3ui7RjsVzsXerWQvInTe95CBKFyOV/GchMUlNztoFnnYmlMhX7hLUqJMhbG9l7M507V7+xU8Hw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.10.3
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /@toruslabs/eccrypto/1.1.8:
@@ -5603,23 +5628,22 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: true
 
-  /graphql-request/5.0.0_graphql@16.6.0:
-    resolution: {integrity: sha512-SpVEnIo2J5k2+Zf76cUkdvIRaq5FMZvGQYnA4lUWYbc99m+fHh4CZYRRO/Ff4tCLQ613fzCm3SiDT64ubW5Gyw==}
+  /graphql-request/3.7.0_graphql@15.8.0:
+    resolution: {integrity: sha512-dw5PxHCgBneN2DDNqpWu8QkbbJ07oOziy8z+bK/TAXufsOLaETuVO4GkXrbs0WjhdKhBMN3BkpN/RIvUHkmNUQ==}
     peerDependencies:
       graphql: 14 - 16
     dependencies:
-      '@graphql-typed-document-node/core': 3.1.1_graphql@16.6.0
       cross-fetch: 3.1.5
       extract-files: 9.0.0
       form-data: 3.0.1
-      graphql: 16.6.0
+      graphql: 15.8.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /graphql/16.6.0:
-    resolution: {integrity: sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==}
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
+  /graphql/15.8.0:
+    resolution: {integrity: sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==}
+    engines: {node: '>= 10.x'}
     dev: false
 
   /hamt_plus/1.0.2:
@@ -9008,7 +9032,7 @@ packages:
     dev: true
 
   github.com/ethereumjs/ethereumjs-abi/ee3994657fa7a427238e6ba92a84d0b529bbcde0:
-    resolution: {tarball: https://codeload.github.com/ethereumjs/ethereumjs-abi/tar.gz/ee3994657fa7a427238e6ba92a84d0b529bbcde0}
+    resolution: {commit: ee3994657fa7a427238e6ba92a84d0b529bbcde0, repo: git+ssh://git@github.com/ethereumjs/ethereumjs-abi.git, type: git}
     name: ethereumjs-abi
     version: 0.6.8
     dependencies:
