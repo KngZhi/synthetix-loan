@@ -1,0 +1,1 @@
+export const DEFAULT_REQUEST_REFRESH_INTERVAL = 300000; // 5min
