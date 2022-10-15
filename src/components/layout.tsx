@@ -81,7 +81,7 @@ export default function Layout({ children }: LayoutProps) {
               const linkBase = href.split(`/`)[1];
               const isActive = linkBase === asPath.split(`/`)[1];
               return (
-                <Tab selected={isActive}>
+                <Tab selected={isActive} key={route.label}>
                   <Link href={route.href}>{route.label}</Link>
                 </Tab>
               );

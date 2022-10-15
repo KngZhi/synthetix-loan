@@ -18,29 +18,6 @@ const TokenSelector = ({
   tokenList,
   onClick,
 }: TokenSelectorProps) => {
-  const CoinSelector = styled(Flex)<{ height?: string }>`
-    align-items: center;
-    gap: 5px;
-    height: ${({ height }) => height || `100%`};
-  `;
-
-  const Coin = styled(Flex)<{ active: boolean }>`
-    height: 44px;
-    align-items: center;
-    padding: 10px 8px;
-    gap: 5px;
-    ${(props) => props.active && `background: rgba(255, 255, 255, 0.06);`}
-  `;
-
-  const DropdownContainer = styled.div`
-    width: 192px;
-    background-color: ${({ theme }) => theme.colors.bgNavy};
-    border: 1px solid #2d2d38;
-    box-shadow: 0px 14px 14px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    z-index: 10;
-  `;
-
   return (
     <DefaultDropdownMenu
       leftOffset={`-8`}
@@ -76,3 +53,28 @@ const TokenSelector = ({
 };
 
 export default TokenSelector;
+
+const CoinSelector = styled(Flex)<{ height?: string }>`
+  cursor: pointer;
+  align-items: center;
+  gap: 5px;
+  height: ${({ height }) => height || `100%`};
+`;
+
+const Coin = styled(Flex)<{ active: boolean }>`
+  height: 44px;
+  align-items: center;
+  padding: 10px 8px;
+  gap: 5px;
+  ${(props) => props.active && `background: rgba(255, 255, 255, 0.06);`}
+`;
+
+const DropdownContainer = styled.div`
+  cursor: pointer;
+  width: 192px;
+  background-color: ${({ theme }) => theme.colors.bgNavy};
+  border: 1px solid #2d2d38;
+  box-shadow: 0px 14px 14px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  z-index: 10;
+`;
