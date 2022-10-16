@@ -26,13 +26,14 @@ import { synthToContractName } from '@/utils/currencies';
 import { AppEvents, initialState, reducer } from './reducer';
 
 import { getChainIdHex, getNetworkIdFromHex } from '@/utils/infura';
-import { Network } from '@/store/wallet';
+import { Network, NetworkLabelById } from '@/constants/network';
 import { initializeSynthetix } from '@/utils/contracts';
 
 const defaultNetwork: Network = {
   id: NetworkIdByName.mainnet,
   name: NetworkNameById[NetworkIdByName.mainnet],
   useOvm: getIsOVM(NetworkIdByName.mainnet),
+  label: NetworkLabelById[NetworkIdByName.mainnet],
 };
 // Ethereum Mainnet
 const L1DefaultProvider: SynthetixProvider = loadProvider({

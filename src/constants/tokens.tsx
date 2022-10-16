@@ -1,7 +1,9 @@
+import { ethers } from 'ethers';
 import { StaticImageData } from 'next/image';
 import WETHLogo from '@/assets/png/weth.png';
 import sUSDLogo from '@/assets/png/sUSD.png';
 import sETHLogo from '@/assets/png/seth.png';
+import ETHLogo from '@/assets/png/eth.png';
 
 export type CurrencyKey = string;
 export type TokenAddress = string;
@@ -48,15 +50,14 @@ export const sETH: TokenInterface = {
   ovmAddress: OVM_ADDRESS[Tokens.sETH],
 };
 
-// TODO fix token address
 export const ETH: TokenInterface = {
   name: `ETH`,
   key: `eth`,
-  address: sETH_ADDRESS,
-  src: sETHLogo,
+  address: ethers.constants.AddressZero,
+  src: ETHLogo,
   decimals: 18,
   precision: 4,
-  ovmAddress: OVM_ADDRESS[Tokens.sETH],
+  ovmAddress: ethers.constants.AddressZero,
 };
 
 export const WETH: TokenInterface = {

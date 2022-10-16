@@ -12,10 +12,7 @@ interface State {
 
 type ActionButtonProps = {
   isWalletConnected: boolean;
-  balanceValue: string;
-  inputValue: string;
   onClick(): void;
-  connect(): void;
 };
 
 const IndexButton = styled(Button)<{ state: state }>`
@@ -47,32 +44,16 @@ const IndexButton = styled(Button)<{ state: state }>`
 
 export default function ActionButton({
   isWalletConnected,
-  inputValue,
-  balanceValue,
   onClick,
-  connect,
 }: ActionButtonProps): JSX.Element {
-  const errorState = (msg: string): State => ({
-    state: `error`,
-    msg,
-    disabled: false,
-  });
   const actionState = (): State => {
     if (!isWalletConnected) {
       return {
         state: `unconnected`,
         msg: `Connect Wallet`,
-        action: connect,
+        action: onClick,
         disabled: false,
       };
-    }
-
-    if (parseFloat(balanceValue) === 0) {
-      return errorState(`No sufficient balance`);
-    }
-
-    if (parseFloat(inputValue) > parseFloat(balanceValue)) {
-      return errorState(`No sufficient balance`);
     }
 
     return {
