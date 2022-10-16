@@ -7,7 +7,7 @@ import { FlexCol, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
 import ActionButton from '@/components/ActionButton';
 import Slider from '@/components/Slider';
-import { sUSD, ETH, TokenInterface } from '@/constants/tokens';
+import { sUSD, sETH, TokenInterface } from '@/constants/tokens';
 import TokenSelector from '@/components/TokenSelector';
 import Loans from '@/containers/Loans';
 import Connector from '@/containers/connector';
@@ -48,12 +48,11 @@ const ActionPanel = ({
 
   return (
     <>
-      {` `}
       <TokenCard>
         <TokenSelector
           onClick={onClick}
           activeToken={activeToken}
-          tokenList={[sUSD, ETH]}
+          tokenList={[sUSD, sETH]}
         />
         <BalanceContainer>
           <NumericInput onChange={onChange} value={value} placeholder="0.00" />
@@ -68,6 +67,7 @@ const ActionPanel = ({
           <Text12 color="#828295">Decrease Risk</Text12>
         </FlexRow>
         <SeparateLine />
+        <RatioRow lText="Min C-Ratio" rText={formatPercent(minCRatio)} />
         <RatioRow lText="Borrow APY" rText={formatPercent(interestRate)} />
         <RatioRow lText="Issuance Fee" rText={formatPercent(issueFeeRate)} />
         <SeparateLine />
