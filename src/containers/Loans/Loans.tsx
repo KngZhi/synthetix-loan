@@ -333,7 +333,7 @@ function Container() {
     interestRate: rateAndDelayQueries.data?.borrowRate || wei(0),
     issueFeeRate: rateAndDelayQueries.data?.issueFeeRate || wei(0),
     interactionDelay: rateAndDelayQueries.data?.interactionDelay || wei(0),
-    minCRatio: minCratioQuery.data,
+    minCRatio: minCratioQuery.data || wei(0),
     pendingWithdrawals,
     reloadPendingWithdrawals,
     ethLoanContract,
