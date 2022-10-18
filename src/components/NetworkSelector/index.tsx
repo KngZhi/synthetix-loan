@@ -5,7 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { NetWorkButton, BaseButton } from '@/components/Base/Button';
 
-import { Network, networkState } from '@/store/wallet';
+import { networkState } from '@/store/wallet';
 import { useRecoilState } from 'recoil';
 import EthereumLogo from '@/assets/svg/ethereum.svg';
 import OptimismLogo from '@/assets/svg/optimism.svg';
@@ -13,6 +13,7 @@ import DownArrow from '@/assets/svg/down-arrow.svg';
 import { Optimism, Ethereum, SupportedChains } from '@/constants/chains';
 import Connector from '@/containers/connector';
 import type { Chain } from '@/constants/chains';
+import type { Network } from '@/constants/network';
 
 const NETWORK_ICON = {
   [Ethereum.id]: EthereumLogo,
@@ -121,12 +122,14 @@ const NetworkSelector: FC<NetworkSelectorProps> = ({
       const chain = SupportedChains.find(
         (chain) => Number(chain.id) === network.id,
       ) as Chain;
-      setActiveNetwork({
-        id: chain.id,
-        name: chain.name,
-        label: chain.label,
-        useOvm: chain.id !== 1,
-      } as Network);
+      if (chain) {
+        setActiveNetwork({
+          id: chain.id,
+          name: chain.name,
+          label: chain.label,
+          useOvm: chain.id !== 1,
+        } as Network);
+      }
     }
   }, [network, setActiveNetwork]);
 
