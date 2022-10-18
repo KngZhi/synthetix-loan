@@ -81,7 +81,10 @@ export default function MainCard() {
             placeholder="0.00"
             onChange={setCollateralInput}
           />
-          <Balance asset="ETH" />
+          <Balance
+            asset="ETH"
+            onSetMaxAmount={(value) => setCollateralInput(value)}
+          />
         </BalanceContainer>
       </TokenCard>
       <IconArrow>

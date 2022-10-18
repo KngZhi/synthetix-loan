@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import styled from 'styled-components';
 import Connector from '@/containers/connector';
 import { wei } from '@synthetixio/wei';
-import { FlexCol } from '@/components/Base/Div';
+import { FlexCol, Flex } from '@/components/Base/Div';
 import { SideText } from '@/components/Base/Text';
 
 type BalanceProps = {
@@ -11,14 +11,18 @@ type BalanceProps = {
   onSetMaxAmount?: (amount: string) => void;
 };
 
-const Balance: React.FC<BalanceProps> = ({ asset }) => {
+const Balance: React.FC<BalanceProps> = ({ asset, onSetMaxAmount }) => {
   const { signer } = Connector.useContainer();
-  return !signer ? null : asset === `ETH` ? <ETH /> : <ERC20 {...{ asset }} />;
+  return !signer ? null : asset === `ETH` ? (
+    <ETH onSetMaxAmount={onSetMaxAmount} />
+  ) : (
+    <ERC20 {...{ asset }} onSetMaxAmount={onSetMaxAmount} />
+  );
 };
 
 export default Balance;
 
-const ETH = () => {
+const ETH = ({ onSetMaxAmount }: { onSetMaxAmount?(value: string): void }) => {
   const { provider, signer } = Connector.useContainer();
   const [balance, setBalance] = useState(ethers.BigNumber.from(`0`));
 
@@ -51,11 +55,24 @@ const ETH = () => {
   return (
     balance && (
       <Container>
-        <SideText>ETH Balance: {wei(balance).toString(2)}</SideText>
+        <SideText>ETH Balance: {wei(balance).toString(4)}</SideText>
+        {onSetMaxAmount && (
+          <MaxButton onClick={() => onSetMaxAmount(wei(balance).toString(4))}>
+            MAX
+          </MaxButton>
+        )}
       </Container>
     )
   );
 };
+
+const MaxButton = styled.span`
+  border: unset;
+  background: transparent;
+  color: rgb(0, 209, 255);
+  cursor: pointer;
+  font-size: 12px;
+`;
 
 type ERC20Props = {
   asset: string;
@@ -128,6 +145,7 @@ const ERC20: React.FC<ERC20Props> = ({ asset }) => {
   );
 };
 
-const Container = styled(FlexCol)`
-  align-items: flex-end;
+const Container = styled(Flex)`
+  align-items: center;
+  gap: 5px;
 `;
