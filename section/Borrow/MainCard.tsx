@@ -21,8 +21,6 @@ import { getSafeMinCRatioBuffer } from './utils';
 import { ethers } from 'ethers';
 import { useQuery } from 'react-query';
 
-import useTokensBalances from '@/hooks/useTokensBalances';
-
 const generateWei = (
   value: string,
   token: TokenInterface,

@@ -39,4 +39,8 @@ const LeftPanel = styled(FlexCol)`
 const RightPanel = styled.div`
   width: 322px;
 `;
-const Container = styled(FlexRow)``;
+const Container = styled(FlexRow)`
+  .table-header {
+    height: 40px;
+  }
+`;

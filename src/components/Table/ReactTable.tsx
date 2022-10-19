@@ -164,8 +164,11 @@ export const Table: FC<TableProps> = ({
                     {column.render(`Header`)}
                     {column.sortable && (
                       <SortIconContainer>
-                        <ArrowDown size={12} color="#2ED9FF" />
-                        <ArrowUp size={12} color="#2ED9FF" />
+                        {column.isSortedDesc ? (
+                          <ArrowUp size={12} color="#2ED9FF" />
+                        ) : (
+                          <ArrowDown size={12} color="#2ED9FF" />
+                        )}
                       </SortIconContainer>
                     )}
                   </TableCellHead>
