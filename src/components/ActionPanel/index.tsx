@@ -1,12 +1,10 @@
 import Wei from '@synthetixio/wei';
 import { GasPrice } from '@synthetixio/queries';
-import { Text16, Text12 } from '@/components/Base/Text';
+import { Text16 } from '@/components/Base/Text';
 import { BaseCard } from '@/components/Base/Card';
 import styled from 'styled-components';
 import { FlexCol, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
-import ActionButton from '@/components/ActionButton';
-import Slider from '@/components/Slider';
 import { sUSD, sETH, TokenInterface } from '@/constants/tokens';
 import TokenSelector from '@/components/TokenSelector';
 import Loans from '@/containers/Loans';
@@ -20,10 +18,9 @@ import { useEffect } from 'react';
 type ActionPanelProps = {
   activeToken: TokenInterface;
   value: string;
-  cRatio: string;
+  cRatio: Wei;
   onChange?: (value: string) => void;
   onClick: (token: TokenInterface) => void;
-  onSubmit: () => void;
   optimismLayerOneFee: Wei | null;
   onGasChange(gas: GasPrice | undefined): void;
 };
@@ -32,7 +29,6 @@ const ActionPanel = ({
   onChange,
   activeToken,
   onClick,
-  onSubmit,
   value,
   cRatio,
   optimismLayerOneFee,
@@ -60,13 +56,7 @@ const ActionPanel = ({
         </BalanceContainer>
       </TokenCard>
       <InfoCard>
-        <RatioRow lText="C-Ratio" rText={cRatio} />
-        <Slider />
-        <FlexRow>
-          <Text12 color="#828295">Increase Risk</Text12>
-          <Text12 color="#828295">Decrease Risk</Text12>
-        </FlexRow>
-        <SeparateLine />
+        <RatioRow lText="C-Ratio" rText={formatPercent(cRatio)} />
         <RatioRow lText="Min C-Ratio" rText={formatPercent(minCRatio)} />
         <RatioRow lText="Borrow APY" rText={formatPercent(interestRate)} />
         <RatioRow lText="Issuance Fee" rText={formatPercent(issueFeeRate)} />
@@ -82,7 +72,6 @@ const ActionPanel = ({
           }
         />
       </InfoCard>
-      <ActionButton isWalletConnected={isWalletConnected} onClick={onSubmit} />
     </>
   );
 };

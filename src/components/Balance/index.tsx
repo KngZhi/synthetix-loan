@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import styled from 'styled-components';
 import Connector from '@/containers/connector';
 import { wei } from '@synthetixio/wei';
-import { FlexCol, Flex } from '@/components/Base/Div';
+import { Flex } from '@/components/Base/Div';
 import { SideText } from '@/components/Base/Text';
 
 type BalanceProps = {

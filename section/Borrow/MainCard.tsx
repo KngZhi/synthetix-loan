@@ -12,15 +12,16 @@ import { Text12 } from '@/components/Base/Text';
 import ActionPanel from '@/components/ActionPanel';
 import TokenSelector from '@/components/TokenSelector';
 import useSynthetixQueries, { GasPrice } from '@synthetixio/queries';
-import { getETHToken } from '@/contracts/ethToken';
 import Connector from '@/containers/connector/Connector';
 import Balance from '@/components/Balance';
 import { calculateLoanCRatio } from '@/components/ActionPanel/utils';
-import { parseSafeWei } from '@/utils/parse';
-import { formatPercent } from '@/utils/formatters/number';
 import Loans from '@/containers/Loans';
+import SubmitButton from './components/SubmitButton';
 import { getSafeMinCRatioBuffer } from './utils';
 import { ethers } from 'ethers';
+import { useQuery } from 'react-query';
+
+import useTokensBalances from '@/hooks/useTokensBalances';
 
 const generateWei = (
   value: string,
@@ -34,7 +35,7 @@ const generateWei = (
 };
 
 export default function MainCard() {
-  const { network } = Connector.useContainer();
+  const { synthetixjs, isWalletConnected } = Connector.useContainer();
   const { minCRatio } = Loans.useContainer();
   const [collateralToken, setCollateralToken] = useState<TokenInterface>(ETH);
   const [debtToken, setDebtToken] = useState<TokenInterface>(sUSD);
@@ -50,6 +51,15 @@ export default function MainCard() {
   const safeMinCratio = minCRatio
     ? minCRatio.add(getSafeMinCRatioBuffer(debtWei.asset, collateralWei.asset))
     : wei(0);
+
+  const loanContract = synthetixjs?.contracts.CollateralEth;
+  const { data: minCollateralAmount = wei(0) } = useQuery<Wei>(
+    [loanContract?.address],
+    async () => {
+      if (!loanContract) return wei(0);
+      return wei(await loanContract.minCollateral());
+    },
+  );
 
   const openTxn = useSynthetixTxn(
     `CollateralEth`,
@@ -93,12 +103,20 @@ export default function MainCard() {
       <ActionPanel
         onGasChange={setGasPrice}
         optimismLayerOneFee={openTxn.optimismLayerOneFee}
-        onSubmit={onSubmit}
-        cRatio={formatPercent(cRatio)}
+        cRatio={cRatio}
         value={debtInput}
         activeToken={debtToken}
         onClick={setDebtToken}
         onChange={setDebtInput}
+      />
+      <SubmitButton
+        minCollateral={minCollateralAmount}
+        collateral={collateralWei.amount}
+        debt={debtWei.amount}
+        cRatio={cRatio}
+        safeMinCratio={safeMinCratio}
+        isWalletConnected={isWalletConnected}
+        onClick={onSubmit}
       />
     </Container>
   );
