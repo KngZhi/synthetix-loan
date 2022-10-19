@@ -89,7 +89,11 @@ const PositionTable = (): JSX.Element => {
     },
   ];
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <Container>
+      <Table columns={columns} data={data} />
+    </Container>
+  );
 };
 
 export default PositionTable;
@@ -102,4 +106,9 @@ const ManageButton = styled.button`
   border-radius: 4px;
   border: 1px solid #000000;
   cursor: pointer;
+`;
+
+const Container = styled.div`
+  border: 1px solid ${({ theme }) => theme.colors.gray900};
+  border-radius: 6px;
 `;

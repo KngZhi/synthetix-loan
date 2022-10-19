@@ -9,9 +9,10 @@ import {
   Cell,
 } from 'react-table';
 import styled, { css } from 'styled-components';
+import { ArrowDown, ArrowUp } from 'react-feather';
 
 import { FlexItemsCenter, GridDivCenteredRow } from '@/components/Base/Div';
-import { ArrowDown, ArrowUp } from 'react-feather';
+import Pagination from './Pagination';
 
 export type TablePalette = 'primary';
 
@@ -137,7 +138,7 @@ export const Table: FC<TableProps> = ({
   const defaultRef = useRef(null);
 
   return (
-    <>
+    <Container>
       <TableContainer>
         <ReactTable
           {...getTableProps()}
@@ -216,12 +217,27 @@ export const Table: FC<TableProps> = ({
             noResultsMessage}
         </ReactTable>
       </TableContainer>
-    </>
+      {showPagination && (
+        <Pagination
+          pageIndex={pageIndex}
+          pageCount={pageCount}
+          canNextPage={canNextPage}
+          canPreviousPage={canPreviousPage}
+          setPageSize={gotoPage}
+          previousPage={previousPage}
+          nextPage={nextPage}
+        />
+      )}
+    </Container>
   );
 };
 
-const TableContainer = styled.div<{ width?: number | string }>`
+const Container = styled.div`
   background: ${({ theme }) => theme.colors.bgNavy};
+  border-radius: 6px;
+`;
+
+const TableContainer = styled.div<{ width?: number | string }>`
   overflow-x: auto;
 `;
 
@@ -291,15 +307,15 @@ const ReactTable = styled.div<{
   height: 100%;
   overflow: auto;
   position: relative;
-  border: 1px solid ${({ theme }) => theme.colors.gray900};
+  // border: 1px solid ${({ theme }) => theme.colors.gray900};
   border-radius: 6px;
 
   ${(props) =>
     props.palette === `primary` &&
     css`
-      ${TableBody} {
-        max-height: calc(100% - ${props.cardHeight});
-      }
+      // ${TableBody} {
+      //   max-height: calc(100% - ${props.cardHeight});
+      // }
       ${TableCell} {
         font-size: 12px;
       }
