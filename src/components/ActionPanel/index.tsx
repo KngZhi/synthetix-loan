@@ -19,7 +19,7 @@ type ActionPanelProps = {
   activeToken: TokenInterface;
   value: string;
   cRatio: Wei;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
   onClick: (token: TokenInterface) => void;
   optimismLayerOneFee: Wei | null;
   onGasChange(gas: GasPrice | undefined): void;
@@ -34,7 +34,7 @@ const ActionPanel = ({
   optimismLayerOneFee,
   onGasChange,
 }: ActionPanelProps) => {
-  const { isWalletConnected, isL2 } = Connector.useContainer();
+  const { isL2 } = Connector.useContainer();
   const { issueFeeRate, interestRate, minCRatio } = Loans.useContainer();
   const gasPrice = useGasPrice();
 
@@ -56,7 +56,10 @@ const ActionPanel = ({
         </BalanceContainer>
       </TokenCard>
       <InfoCard>
-        <RatioRow lText="C-Ratio" rText={formatPercent(cRatio)} />
+        <RatioRow
+          lText="C-Ratio"
+          rText={<CRatio cRatio={cRatio} minCRatio={minCRatio} />}
+        />
         <RatioRow lText="Min C-Ratio" rText={formatPercent(minCRatio)} />
         <RatioRow lText="Borrow APY" rText={formatPercent(interestRate)} />
         <RatioRow lText="Issuance Fee" rText={formatPercent(issueFeeRate)} />
@@ -73,6 +76,24 @@ const ActionPanel = ({
         />
       </InfoCard>
     </>
+  );
+};
+
+type CRatioProps = {
+  cRatio: Wei;
+  minCRatio: Wei;
+};
+
+const CRatio = ({ cRatio, minCRatio }: CRatioProps) => {
+  if (cRatio.eq(0)) return <Text16>-</Text16>;
+
+  const isHealthy = cRatio.gt(minCRatio);
+  console.log(formatPercent(cRatio));
+
+  return (
+    <Text16 color={isHealthy ? `#34EDB3` : `rgb(255, 30, 57)`}>
+      {formatPercent(cRatio)}
+    </Text16>
   );
 };
 
