@@ -13,7 +13,8 @@ import DEBTIcon from 'assets/png/currencies/sDebt.png';
 import DOGEIcon from 'assets/png/currencies/sDOGE.png';
 import DOTIcon from 'assets/png/currencies/sDOT.png';
 import DYDXIcon from 'assets/png/currencies/sDYDX.png';
-import ETHIcon from 'assets/png/currencies/sETH.png';
+import sETHIcon from 'assets/png/currencies/sETH.png';
+import ETHIcon from '@/assets/png/currencies/eth.png';
 import ETHBTCIcon from 'assets/png/currencies/sETHBTC.png';
 import EURIcon from 'assets/png/currencies/sEUR.png';
 import GBPIcon from 'assets/png/currencies/sGBP.png';
@@ -38,8 +39,9 @@ export type CurrencyIconProps = {
 };
 
 const SYNTH_ICONS: Record<string, any> = {
+  ETH: ETHIcon,
   sBTC: BTCIcon,
-  sETH: ETHIcon,
+  sETH: sETHIcon,
   sLINK: LINKIcon,
   sSOL: SOLIcon,
   sAVAX: AVAXIcon,

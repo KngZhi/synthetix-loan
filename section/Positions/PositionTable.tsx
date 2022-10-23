@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { Text12, Text, SubText } from '@/components/Base/Text';
 import { FlexRowCentered, FlexCol } from '@/components/Base/Div';
 import Table from '@/components/Table/ReactTable';
-import { makeData, makePerson } from '@/components/Table/makeData';
-import { useState } from 'react';
 import Link from 'next/link';
+import Loans from '@/containers/Loans';
+import Wei, { wei } from '@synthetixio/wei';
+import { formatPercent } from '@/utils/formatters/number';
+import LoanCell from './LoanCell';
 
 const HeaderText = styled(Text12)`
   color: ${({ theme }) => theme.colors.gray700};
@@ -31,12 +33,17 @@ const AmountCell = ({
 };
 
 const PositionTable = (): JSX.Element => {
-  const [data, setData] = useState(() => makePerson());
+  const { loans } = Loans.useContainer();
+
   const columns = [
     {
       accessor: `loan`,
       Cell: (props: any) => (
-        <Text size={14}>{`#${props.row.original.loan}`}</Text>
+        <LoanCell
+          id={props.row.original.id}
+          debtToken={props.row.original.currency}
+          collateralToken={`ETH`}
+        />
       ),
       Header: <HeaderText>Loan</HeaderText>,
       width: 126,
@@ -44,31 +51,39 @@ const PositionTable = (): JSX.Element => {
     },
     {
       accessor: `amount`,
-      Cell: ({ row }: any) => (
-        <AmountCell
-          title={`${row.original.amount} sUSD`}
-          subtitle={`Collateral: ${row.original.collateral} sMKR`}
-        />
-      ),
+      Cell: ({ row }: any) => {
+        const { amount, collateral, currency } = row.original;
+        return (
+          <AmountCell
+            title={`${wei(amount).toString(2)} ${currency}`}
+            subtitle={`Collateral: ${wei(collateral).toString(2)} ETH`}
+          />
+        );
+      },
       Header: <HeaderText>Amount</HeaderText>,
       width: 145,
       sortable: true,
     },
     {
       accessor: `cRatio`,
-      Cell: (props: any) => <Text size={14}>234%</Text>,
+      Cell: (props: any) => (
+        <Text size={14}>{formatPercent(props.row.original.cratio)}</Text>
+      ),
       Header: <HeaderText>C-Ratio</HeaderText>,
       width: 102,
       sortable: true,
     },
     {
       accessor: `liquidationPrice`,
-      Cell: ({ row }: any) => (
-        <AmountCell
-          title={row.original.liquidationPrice}
-          subtitle={`ETH Price: $4200`}
-        />
-      ),
+      Cell: ({ row }: any) =>
+        row.original.currency === `sETH` ? (
+          <Text size={14}>N/A</Text>
+        ) : (
+          <Liquidation
+            minCRatio={row.original.minCratio}
+            debtAmount={row.original.amount}
+          />
+        ),
       Header: <HeaderText>Liquidation Price</HeaderText>,
       width: 145,
       sortable: true,
@@ -76,9 +91,9 @@ const PositionTable = (): JSX.Element => {
     {
       Cell: (props: any) => (
         <InterestRate>
-          0.25%
+          {formatPercent(props.row.original.interestIndex)}
           <ManageButton>
-            <Link href={`/loan/${props.row.original.loan}`}>Manage</Link>
+            <Link href={`/loan/${props.row.original.id}`}>Manage</Link>
           </ManageButton>
         </InterestRate>
       ),
@@ -91,7 +106,7 @@ const PositionTable = (): JSX.Element => {
 
   return (
     <Container>
-      <Table columns={columns} data={data} />
+      <Table columns={columns} data={loans} />
     </Container>
   );
 };
@@ -112,3 +127,15 @@ const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray900};
   border-radius: 6px;
 `;
+
+type LiquidationProps = {
+  minCRatio: Wei;
+  debtAmount: Wei;
+};
+
+const Liquidation = ({ minCRatio, debtAmount }: LiquidationProps) => {
+  const liquidationPrice = wei(debtAmount).mul(minCRatio).toString(2);
+  return (
+    <AmountCell title={`$ ${liquidationPrice}`} subtitle={`ETH Price: $4200`} />
+  );
+};
