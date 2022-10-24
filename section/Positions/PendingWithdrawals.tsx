@@ -1,15 +1,38 @@
 import styled from 'styled-components';
 import { BaseCard } from '@/components/Base/Card';
 import { Text } from '@/components/Base/Text';
-import { FlexRow, FlexCol, Flex } from '@/components/Base/Div';
+import { FlexRow, FlexCol } from '@/components/Base/Div';
 import ReactTable from '@/components/Table/ReactTable';
-import { useState } from 'react';
+import Loans from '@/containers/Loans';
+import { wei } from '@synthetixio/wei';
+import useSynthetixQueries from '@synthetixio/queries';
+
 const PendingWithdrawals = () => {
   const data = [{}, {}].map(() => ({
     number: 355,
     timestamp: Date.now(),
     amount: 0.3,
   }));
+  const { pendingWithdrawals, reloadPendingWithdrawals, ethLoanContract } =
+    Loans.useContainer();
+  const { useSynthetixTxn } = useSynthetixQueries();
+
+  const claimTxn = useSynthetixTxn(
+    `CollateralETH`,
+    `claim`,
+    [pendingWithdrawals],
+    {},
+    {
+      enabled: Boolean(ethLoanContract) && pendingWithdrawals.gt(0),
+      async onSuccess() {
+        await reloadPendingWithdrawals();
+      },
+    },
+  );
+
+  const claimPendingWithdrawals = () => {
+    claimTxn.mutate();
+  };
   const columns = [
     {
       accessor: `number`,
@@ -40,9 +63,9 @@ const PendingWithdrawals = () => {
       <TotalClaim>
         <FlexCol>
           <Text size={16}>Total to claim</Text>
-          <Text size={18}>0.69 ETH</Text>
+          <Text size={18}>{wei(pendingWithdrawals).toString(2)} ETH</Text>
         </FlexCol>
-        <ClaimButton>Claim</ClaimButton>
+        <ClaimButton onClick={claimPendingWithdrawals}>Claim</ClaimButton>
       </TotalClaim>
       <ReactTable
         columns={columns}
@@ -94,6 +117,7 @@ const TotalClaim = styled(FlexRow)`
 `;
 
 const ClaimButton = styled.button`
+  pointer: cursor;
   width: 72px;
   height: 40px;
   color: #00d1ff;
