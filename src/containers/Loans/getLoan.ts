@@ -1,3 +1,4 @@
+import { wei } from '@synthetixio/wei';
 import { BigNumber, Contract, ethers } from 'ethers';
 import { parseBytes32String } from 'ethers/lib/utils';
 import { Loan } from './types';

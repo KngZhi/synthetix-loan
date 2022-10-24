@@ -5,7 +5,6 @@ import { Loan } from './types';
 
 async function getOpenLoans({
   address,
-
   ethLoanContract,
   ethLoanStateContract,
   subgraphOpenLoans,

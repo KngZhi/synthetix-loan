@@ -18,7 +18,7 @@ const PositionPage = (): JSX.Element => {
         <Title>Position</Title>
         <Container>
           <LeftPanel>
-            <PositionTable />
+            {/* <PositionTable /> */}
             <LoanHistory />
           </LeftPanel>
           <RightPanel>

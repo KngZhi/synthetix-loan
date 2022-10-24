@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
-import { Text12, Text, SubText, Text18 } from '@/components/Base/Text';
-import { FlexRowCentered, FlexCol, FlexRow, Flex } from '@/components/Base/Div';
+import { Text12, Text, SubText } from '@/components/Base/Text';
+import { FlexRowCentered, FlexCol } from '@/components/Base/Div';
 import Table from '@/components/Table/ReactTable';
-import { makeData, makePerson } from '@/components/Table/makeData';
-import { useState } from 'react';
 import { useBoolean } from 'usehooks-ts';
 import { ChevronDown } from 'react-feather';
-import { DualCurrencyIcon } from '@/components/Currency/CurrencyIcon';
+import Loans from '@/containers/Loans';
+import { wei } from '@synthetixio/wei';
+import LoanCell from './LoanCell';
 
 const TogglePanel = () => {
   const { value: isActive, toggle } = useBoolean(true);
@@ -15,7 +15,7 @@ const TogglePanel = () => {
       <TitlePanel active={isActive} onClick={() => toggle()}>
         <FlexRowCentered>
           <Text size={20}>Loan History</Text>
-          <Number>9</Number>
+          <NumberText>9</NumberText>
         </FlexRowCentered>
         <ChevronDown size={16} color={`#00D1FF`} className="down-arrow" />
       </TitlePanel>
@@ -27,65 +27,65 @@ const TogglePanel = () => {
 };
 
 const PositionTable = (): JSX.Element => {
-  const [data, setData] = useState(() => makePerson());
+  const { closedLoans } = Loans.useContainer();
 
-  return (
-    <Table
-      columns={[
-        {
-          accessor: `loan`,
-          Cell: (props: any) => <LoanCell loan={props.row.original.amount} />,
-          Header: <HeaderText>Loan</HeaderText>,
-          width: 126,
-          sortable: true,
-        },
-        {
-          accessor: `amount`,
-          Cell: ({ row }: any) => (
-            <AmountCell
-              title={`${row.original.amount}`}
-              subtitle={row.original.collateral}
-            />
-          ),
-          Header: <HeaderText>Amount</HeaderText>,
-          width: 145,
-          sortable: true,
-        },
-        {
-          accessor: `cRatio`,
-          Cell: (props: any) => <Text size={14}>234%</Text>,
-          Header: <HeaderText>C-Ratio</HeaderText>,
-          width: 102,
-          sortable: true,
-        },
-        {
-          accessor: `liquidationPrice`,
-          Cell: ({ row }: any) => (
-            <AmountCell
-              title={row.original.liquidationPrice}
-              subtitle={`ETH Price: $4200`}
-            />
-          ),
-          Header: <HeaderText>Liquidation Price</HeaderText>,
-          width: 145,
-          sortable: true,
-        },
-        {
-          Cell: (props: any) => (
-            <InterestRate>
-              0.25%
-              <ManageButton>Manage</ManageButton>
-            </InterestRate>
-          ),
-          accessor: `interestRate`,
-          Header: <HeaderText>Interest Rate</HeaderText>,
-          sortable: true,
-          width: 245,
-        },
-      ]}
-      data={data}
-    />
-  );
+  const columns = [
+    {
+      accessor: `loan`,
+      Cell: (props: any) => (
+        <LoanCell
+          id={Number(props.row.original.id)}
+          debtToken={props.row.original.currency}
+          collateralToken={`ETH`}
+        />
+      ),
+      Header: <HeaderText>Loan</HeaderText>,
+      width: 120,
+      sortable: true,
+    },
+    {
+      accessor: `amount`,
+      Cell: ({ row }: any) => {
+        const { amount, collateralAmount, currency } = row.original;
+        return (
+          <AmountCell
+            title={`${wei(amount).toString(2)} ${currency}`}
+            subtitle={`Collateral: ${wei(collateralAmount).toString(2)} ETH`}
+          />
+        );
+      },
+      Header: <HeaderText>Amount</HeaderText>,
+      width: 145,
+      sortable: true,
+    },
+    {
+      accessor: `cRatio`,
+      Cell: (props: any) => <Text size={14}>N/A</Text>,
+      Header: <HeaderText>C-Ratio</HeaderText>,
+      width: 102,
+      sortable: true,
+    },
+    {
+      accessor: `liquidationPrice`,
+      Cell: ({ row }: any) => <Text size={14}>N/A</Text>,
+      Header: <HeaderText>Liquidation Price</HeaderText>,
+      width: 145,
+    },
+    {
+      Cell: (props: any) => (
+        <InterestRate>
+          0.25%
+          <ManageButton disabled={true}>Closed</ManageButton>
+        </InterestRate>
+      ),
+      accessor: `interestRate`,
+      Header: <HeaderText>Interest Rate</HeaderText>,
+      sortable: true,
+      width: 245,
+    },
+  ];
+
+  return <Table columns={columns} data={closedLoans} />;
 };
 
 export default TogglePanel;
@@ -98,19 +98,6 @@ const HeaderText = styled(Text12)`
 const InterestRate = styled(FlexRowCentered)`
   width: 100%;
 `;
-
-const LoanCell = ({ loan }: { loan: string }) => {
-  return (
-    <Loan>
-      <DualCurrencyIcon
-        leftCurrencyKey="sUSD"
-        rightCurrencyKey="sETH"
-        sizes={22}
-      />
-      <Text size={14}>{`#${loan}`}</Text>
-    </Loan>
-  );
-};
 
 const AmountCell = ({
   title,
@@ -132,13 +119,12 @@ const Loan = styled(FlexRowCentered)`
 `;
 
 const ManageButton = styled.button`
-  background: ${({ theme }) => theme.colors.greenCyan};
+  background: ${({ theme }) => theme.colors.gray900};
   width: 80px;
   height: 36px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.gray600};
   border-radius: 4px;
   border: 1px solid #000000;
-  cursor: pointer;
 `;
 
 const Container = styled(FlexCol)<{ active: boolean }>`
@@ -169,7 +155,7 @@ const TitlePanel = styled(FlexRowCentered)<{ active: boolean }>`
   }
 `;
 
-const Number = styled.div`
+const NumberText = styled.div`
   background: #31d8a4;
   border-radius: 50%;
   width: 18px;
@@ -177,6 +163,9 @@ const Number = styled.div`
   margin-left: 10px;
   color: #000;
   text-align: center;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 18px;
 `;
 
 const ContentPanel = styled.div<{ active: boolean }>`

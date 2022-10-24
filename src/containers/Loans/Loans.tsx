@@ -8,7 +8,7 @@ import getOpenLoans from './getOpenLoans';
 import { Loan } from './types';
 import getLoan from './getLoan';
 
-import useSynthetixQueries from '@synthetixio/queries';
+import useSynthetixQueries, { LoanResult } from '@synthetixio/queries';
 import { useQuery } from 'react-query';
 import { wei } from '@synthetixio/wei';
 
@@ -27,6 +27,7 @@ function Container() {
 
   const [isLoadingLoans, setIsLoadingLoans] = useState(false);
   const [loans, setLoans] = useState<Loan[]>([]);
+  const [closedLoans, setClosedLoans] = useState<LoanResult[]>([]);
 
   const [pendingWithdrawals, setPendingWithdrawals] = useState(
     BigNumber.from(`0`),
@@ -57,19 +58,36 @@ function Container() {
   );
 
   const subgraphOpenLoansQuery = subgraph.useGetLoans(
-    { where: { isOpen: true, account: walletAddress } },
-    { id: true, collateralMinted: true },
+    { where: { account: walletAddress } },
+    {
+      id: true,
+      collateralMinted: true,
+      isOpen: true,
+      currency: true,
+      createdAt: true,
+      collateralAmount: true,
+      closedAt: true,
+      amount: true,
+    },
     { queryKey: [`getLoans`, isL2, walletAddress] },
   );
 
+  const replaceId = (loan: LoanResult) => {
+    const id = loan.id.replace(/-\w+/, ``); //remove -sETH from id
+    return { ...loan, id };
+  };
+
   const subgraphOpenLoansKey = subgraphOpenLoansQuery.data
     ? JSON.stringify(
-        subgraphOpenLoansQuery.data.map((x) => {
-          const id = x.id.replace(/-\w+/, ``); //remove -sETH from id
-          return { ...x, id };
-        }),
+        subgraphOpenLoansQuery.data
+          .filter((loan) => loan.isOpen)
+          .map(replaceId),
       )
     : ``;
+  const closedLoanResult =
+    subgraphOpenLoansQuery.data
+      ?.filter((loan) => !loan.isOpen)
+      .map(replaceId) || [];
 
   useEffect(() => {
     if (!(isAppReady && walletAddress && provider && ethLoanContract)) {
@@ -95,6 +113,7 @@ function Container() {
       });
       if (isMounted) {
         setLoans(openLoans);
+        setClosedLoans(closedLoanResult);
         setIsLoadingLoans(false);
       }
     };
@@ -329,6 +348,7 @@ function Container() {
   }, [ethLoanContract, walletAddress]);
   return {
     loans,
+    closedLoans,
     isLoadingLoans,
     interestRate: rateAndDelayQueries.data?.borrowRate || wei(0),
     issueFeeRate: rateAndDelayQueries.data?.issueFeeRate || wei(0),
