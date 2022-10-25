@@ -18,6 +18,19 @@ const TokenSelector = ({
   tokenList,
   onClick,
 }: TokenSelectorProps) => {
+  if (tokenList.length === 0) {
+    return (
+      <CoinSelector>
+        <Image
+          src={activeToken.src}
+          alt={activeToken.name}
+          width={34}
+          height={34}
+        />
+        <Text18>{activeToken.name}</Text18>
+      </CoinSelector>
+    );
+  }
   return (
     <DefaultDropdownMenu
       leftOffset={`-8`}
