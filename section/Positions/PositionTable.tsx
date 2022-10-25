@@ -7,6 +7,9 @@ import Loans from '@/containers/Loans';
 import Wei, { wei } from '@synthetixio/wei';
 import { formatPercent } from '@/utils/formatters/number';
 import LoanCell from './LoanCell';
+import { loanState } from '@/store/loan';
+import { useRecoilState } from 'recoil';
+import { Loan } from '@/containers/Loans/types';
 
 const HeaderText = styled(Text12)`
   color: ${({ theme }) => theme.colors.gray700};
@@ -34,6 +37,7 @@ const AmountCell = ({
 
 const PositionTable = (): JSX.Element => {
   const { loans } = Loans.useContainer();
+  const [_, setLoan] = useRecoilState(loanState);
 
   const columns = [
     {
@@ -92,7 +96,7 @@ const PositionTable = (): JSX.Element => {
       Cell: (props: any) => (
         <InterestRate>
           {formatPercent(props.row.original.interestIndex)}
-          <ManageButton>
+          <ManageButton onClick={() => setLoan(props.row.original as Loan)}>
             <Link href={`/loan/${props.row.original.id}`}>Manage</Link>
           </ManageButton>
         </InterestRate>

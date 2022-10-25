@@ -5,7 +5,7 @@ import { BaseCard } from '@/components/Base/Card';
 import styled from 'styled-components';
 import { FlexCol, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
-import { sUSD, sETH, TokenInterface } from '@/constants/tokens';
+import { sUSD, sETH, TokenInterface, ETH } from '@/constants/tokens';
 import TokenSelector from '@/components/TokenSelector';
 import Loans from '@/containers/Loans';
 import Connector from '@/containers/connector';
@@ -14,15 +14,19 @@ import Balance from '@/components/Balance';
 import GasPriceDisplay from './GasPriceDisplay';
 import useGasPrice from '@/hooks/useGasPrice';
 import { useEffect } from 'react';
+import { ArrowRight } from 'react-feather';
+import { Flex } from '@/components/Base/Div';
 
 type ActionPanelProps = {
   activeToken: TokenInterface;
   value: string;
   cRatio: Wei;
+  newCRatio?: Wei;
   onChange: (value: string) => void;
-  onClick: (token: TokenInterface) => void;
+  onClick?: (token: TokenInterface) => void;
   optimismLayerOneFee: Wei | null;
   onGasChange(gas: GasPrice | undefined): void;
+  tokenList?: TokenInterface[];
 };
 
 const ActionPanel = ({
@@ -33,6 +37,8 @@ const ActionPanel = ({
   cRatio,
   optimismLayerOneFee,
   onGasChange,
+  tokenList = [sUSD, sETH],
+  newCRatio,
 }: ActionPanelProps) => {
   const { isL2 } = Connector.useContainer();
   const { issueFeeRate, interestRate, minCRatio } = Loans.useContainer();
@@ -48,7 +54,7 @@ const ActionPanel = ({
         <TokenSelector
           onClick={onClick}
           activeToken={activeToken}
-          tokenList={[sUSD, sETH]}
+          tokenList={tokenList}
         />
         <BalanceContainer>
           <NumericInput onChange={onChange} value={value} placeholder="0.00" />
@@ -58,9 +64,16 @@ const ActionPanel = ({
       <InfoCard>
         <RatioRow
           lText="C-Ratio"
-          rText={<CRatio cRatio={cRatio} minCRatio={minCRatio} />}
+          rText={
+            <CRatio
+              cRatio={cRatio}
+              minCRatio={minCRatio}
+              newCRatio={newCRatio}
+            />
+          }
         />
         <RatioRow lText="Min C-Ratio" rText={formatPercent(minCRatio)} />
+        <SeparateLine />
         <RatioRow lText="Borrow APY" rText={formatPercent(interestRate)} />
         <RatioRow lText="Issuance Fee" rText={formatPercent(issueFeeRate)} />
         <SeparateLine />
@@ -82,28 +95,45 @@ const ActionPanel = ({
 type CRatioProps = {
   cRatio: Wei;
   minCRatio: Wei;
+  newCRatio?: Wei;
 };
 
-const CRatio = ({ cRatio, minCRatio }: CRatioProps) => {
+const CRatio = ({ cRatio, minCRatio, newCRatio }: CRatioProps) => {
   if (cRatio.eq(0)) return <Text16>-</Text16>;
 
   const isHealthy = cRatio.gt(minCRatio);
-  console.log(formatPercent(cRatio));
 
   return (
-    <Text16 color={isHealthy ? `#34EDB3` : `rgb(255, 30, 57)`}>
-      {formatPercent(cRatio)}
-    </Text16>
+    <CRatioContainer>
+      <Text16 color={isHealthy ? `#34EDB3` : `rgb(255, 30, 57)`}>
+        {formatPercent(cRatio)}
+      </Text16>
+      {newCRatio && newCRatio.gt(0) && (
+        <>
+          <ArrowRight size={16} />
+          <Text16
+            color={newCRatio.gt(minCRatio) ? `#34EDB3` : `rgb(255, 30, 57)`}
+          >
+            {formatPercent(newCRatio)}
+          </Text16>
+        </>
+      )}
+    </CRatioContainer>
   );
 };
 
 export default ActionPanel;
+
+const CRatioContainer = styled(Flex)`
+  align-items: center;
+`;
 
 const TokenCard = styled(BaseCard)`
   padding: 10px 8px 12px;
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const BalanceContainer = styled(FlexCol)`

@@ -9,7 +9,8 @@ export const Text = styled.span<{
   font-size: ${({ size }) => size || 12}px;
   ${({ fontWeight }) => fontWeight && `font-weight: ${fontWeight};`}
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight};`}
-  ${({ color }) => color && `color: ${color};`} // text-transform: capitalize;
+  ${({ color }) => color && `color: ${color};`}
+  text-transform: capitalize;
 `;
 
 export const Text12 = styled(Text)<{ color?: string }>`

@@ -18,6 +18,9 @@ import { BaseCard } from '@/components/Base/Card';
 import { InfoTooltip } from '@/components/Tooltip';
 import ActionHistory from '@/sections/Positions/ActionHistory';
 import ActionCard from '@/sections/Positions/ActionCard';
+import { formatPercent, formatString } from '@/utils/formatters/number';
+import { useRecoilState } from 'recoil';
+import { loanState } from '@/store/loan';
 
 const Cell = ({
   width = `100%`,
@@ -54,6 +57,7 @@ const Cell = ({
 export default function PostPage() {
   const router = useRouter();
   const id = router.query.id as string;
+  const [loan] = useRecoilState(loanState);
 
   return (
     <>
@@ -64,8 +68,8 @@ export default function PostPage() {
         <Header>
           <DualCurrencyIcon
             sizes={40}
-            leftCurrencyKey="sUSD"
-            rightCurrencyKey="sETH"
+            leftCurrencyKey={loan?.currency}
+            rightCurrencyKey="ETH"
           />
           <Title> Loan #{id}</Title>
         </Header>
@@ -79,9 +83,9 @@ export default function PostPage() {
                   title="Loan"
                   html={
                     <>
-                      <CurrencyIcon currencyKey="sUSD" sizes={24} />
+                      <CurrencyIcon currencyKey={loan?.currency} sizes={24} />
                       <Text size={20} color="white">
-                        68 sUSD
+                        {formatString(loan?.amount)} {loan?.currency}
                       </Text>
                     </>
                   }
@@ -92,9 +96,9 @@ export default function PostPage() {
                   title="Collateral"
                   html={
                     <>
-                      <CurrencyIcon currencyKey="sUSD" sizes={24} />
+                      <CurrencyIcon currencyKey="ETH" sizes={24} />
                       <Text size={20} color="white">
-                        68 sUSD
+                        {formatString(loan?.collateral)} ETH
                       </Text>
                     </>
                   }
@@ -108,7 +112,7 @@ export default function PostPage() {
                   html={
                     <FlexRowCentered gap={5}>
                       <Text size={20} color="white">
-                        234%
+                        {formatPercent(loan.cratio)}
                       </Text>
                       <CRatioSign>Good</CRatioSign>
                     </FlexRowCentered>
@@ -137,7 +141,7 @@ export default function PostPage() {
                 />
               </Row>
             </LoanDetail>
-            <ActionHistory />
+            {/* <ActionHistory /> */}
           </FlexCol>
           <ActionCard />
         </Flex>
@@ -175,7 +179,7 @@ const Col = styled(FlexCol)<{ width?: string }>`
 
 const CRatioSign = styled(FlexRowCentered)`
   font-size: 12px;
-  color: white;
+  color: #000000;
   padding: 0 8px;
   background-color: #34edb3;
   border-radius: 4px;

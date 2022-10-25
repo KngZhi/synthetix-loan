@@ -8,3 +8,7 @@ export const formatPercent = (
 
   return wei(value).mul(100).toString(decimals).concat(`%`);
 };
+
+export const formatString = (value: WeiSource, minDecimals = 2) => {
+  return wei(value).toString(minDecimals);
+};

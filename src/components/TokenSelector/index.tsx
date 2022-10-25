@@ -68,6 +68,7 @@ const TokenSelector = ({
 export default TokenSelector;
 
 const CoinSelector = styled(Flex)<{ height?: string }>`
+  z-index: 1;
   cursor: pointer;
   align-items: center;
   gap: 5px;
