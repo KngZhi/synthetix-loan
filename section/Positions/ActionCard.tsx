@@ -13,6 +13,7 @@ import useSynthetixQueries from '@synthetixio/queries';
 import { wei } from '@synthetixio/wei';
 import { calculateLoanCRatio } from '@/components/ActionPanel/utils';
 import useAction from '@/hooks/useAction';
+import ActionButton from '@/components/ActionButton';
 
 const ActionCard = () => {
   const actions = [`borrow`, `repay`, `deposit`, `withdraw`, `close`];
@@ -27,6 +28,7 @@ const ActionCard = () => {
     loan: newLoan,
     collateral: newCollateral,
     activeToken,
+    actionLabel,
   } = useAction({
     action,
     value,
@@ -78,6 +80,7 @@ const ActionCard = () => {
             onChange={setValue}
             newCRatio={newCRatio}
           />
+          <ActionButton msg={actionLabel} />
         </>
       )}
     </Container>

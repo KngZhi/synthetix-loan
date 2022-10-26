@@ -23,6 +23,7 @@ type useActionReturn = {
   activeToken: TokenInterface;
   loan: WeiAsset;
   collateral: WeiAsset;
+  actionLabel: string;
 };
 
 const TokenList: Record<string, TokenInterface> = {
@@ -33,6 +34,14 @@ const TokenList: Record<string, TokenInterface> = {
 
 const safeWei = (value: string) => {
   return value ? wei(value, 18) : wei(0);
+};
+
+const ActionButtonLabels = {
+  borrow: `Borrow More`,
+  repay: `Repay Loan`,
+  deposit: `Deposit Collateral`,
+  withdraw: `Withdraw Collateral`,
+  close: `Close Loan`,
 };
 
 function useAction({
@@ -75,6 +84,7 @@ function useAction({
       amount: collateralWei,
     },
     activeToken,
+    actionLabel: ActionButtonLabels[action] as string,
   };
 }
 
