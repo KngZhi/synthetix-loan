@@ -8,40 +8,34 @@ import ActionPanel from '@/components/ActionPanel';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { loanState } from '@/store/loan';
-import { sUSD, sETH, TokenInterface, ETH } from '@/constants/tokens';
-import useCalcLoanCRatio from '@/hooks/useCalcLoanCRatio';
 import { GasPrice } from '@synthetixio/queries';
 import useSynthetixQueries from '@synthetixio/queries';
-import Wei, { wei } from '@synthetixio/wei';
+import { wei } from '@synthetixio/wei';
 import { calculateLoanCRatio } from '@/components/ActionPanel/utils';
-import generateWei from '@/utils/wei';
-import { formatPercent } from '@/utils/formatters/number';
-
-const TokenList: Record<string, TokenInterface> = {
-  sUSD,
-  sETH,
-  ETH,
-};
+import useAction from '@/hooks/useAction';
 
 const ActionCard = () => {
   const actions = [`borrow`, `repay`, `deposit`, `withdraw`, `close`];
   const [action, setAction] = useState<string>(``);
   const [loan] = useRecoilState(loanState);
-  const activeToken = TokenList[loan.currency];
   const [value, setValue] = useState<string>(``);
   const [gasPrice, setGasPrice] = useState<GasPrice | undefined>();
   const { useExchangeRatesQuery } = useSynthetixQueries();
   const exchangeRatesQuery = useExchangeRatesQuery();
   const exchangeRates = exchangeRatesQuery.data || null;
-  const collateral = generateWei(wei(loan.collateral), loan.collateralAsset);
-  const debtWei = generateWei(value, activeToken);
-  const totalDebt = wei(loan.amount.add(debtWei.amount.toBN()));
+  const {
+    loan: newLoan,
+    collateral: newCollateral,
+    activeToken,
+  } = useAction({
+    action,
+    value,
+    loan: { amount: loan.amount, asset: loan.currency },
+    collateral: { amount: loan.collateral, asset: `ETH` },
+  });
 
   const newCRatio = value
-    ? calculateLoanCRatio(exchangeRates, collateral, {
-        amount: totalDebt,
-        asset: loan.currency,
-      })
+    ? calculateLoanCRatio(exchangeRates, newCollateral, newLoan)
     : wei(0);
 
   return (

@@ -39,6 +39,8 @@ const DropdownList = styled.div<{
       visibility: visible;
       opacity: 1;
     `}
+
+  z-index: 19;
 `;
 
 const DefaultDropdownMenu: FC<DefaultDropdownMenuProps> = ({
