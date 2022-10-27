@@ -1,9 +1,9 @@
 import Wei from '@synthetixio/wei';
 import { GasPrice } from '@synthetixio/queries';
-import { Text16 } from '@/components/Base/Text';
+import { Text16, Text } from '@/components/Base/Text';
 import { BaseCard } from '@/components/Base/Card';
 import styled from 'styled-components';
-import { FlexCol, FlexRow } from '@/components/Base/Div';
+import { FlexCol, FlexItemsCenter, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
 import { sUSD, sETH, TokenInterface, ETH } from '@/constants/tokens';
 import TokenSelector from '@/components/TokenSelector';
@@ -13,21 +13,23 @@ import { formatPercent } from '@/utils/formatters/number';
 import Balance from '@/components/Balance';
 import GasPriceDisplay from './GasPriceDisplay';
 import useGasPrice from '@/hooks/useGasPrice';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight } from 'react-feather';
 import { Flex } from '@/components/Base/Div';
+import type { TokenSelectorProps } from '@/components/TokenSelector';
+import { safeWei } from '@/utils/wei';
+import AlertIcon from '@/assets/png/alert.png';
+import Image from 'next/image';
 
-type ActionPanelProps = {
-  activeToken: TokenInterface;
+export interface ActionPanelProps extends TokenSelectorProps {
   value: string;
   cRatio: Wei;
   newCRatio?: Wei;
   onChange: (value: string) => void;
-  onClick?: (token: TokenInterface) => void;
   optimismLayerOneFee: Wei | null;
   onGasChange(gas: GasPrice | undefined): void;
-  tokenList?: TokenInterface[];
-};
+  errorMsg?: string;
+}
 
 const ActionPanel = ({
   onChange,
@@ -39,6 +41,7 @@ const ActionPanel = ({
   onGasChange,
   tokenList = [sUSD, sETH],
   newCRatio,
+  errorMsg,
 }: ActionPanelProps) => {
   const { isL2 } = Connector.useContainer();
   const { issueFeeRate, interestRate, minCRatio } = Loans.useContainer();
@@ -61,6 +64,14 @@ const ActionPanel = ({
           <Balance asset={activeToken.name} />
         </BalanceContainer>
       </TokenCard>
+      {errorMsg && (
+        <ErrorContainer>
+          <Image src={AlertIcon} alt="alert" />
+          <Text fontWeight={400} size={16}>
+            {errorMsg}
+          </Text>
+        </ErrorContainer>
+      )}
       <InfoCard>
         <RatioRow
           lText="C-Ratio"
@@ -93,12 +104,14 @@ const ActionPanel = ({
 };
 
 type CRatioProps = {
-  cRatio: Wei;
+  cRatio: Wei | JSX.Element;
   minCRatio: Wei;
   newCRatio?: Wei;
 };
 
 const CRatio = ({ cRatio, minCRatio, newCRatio }: CRatioProps) => {
+  if (React.isValidElement(cRatio)) return cRatio;
+
   if (cRatio.eq(0)) return <Text16>-</Text16>;
 
   const isHealthy = cRatio.gt(minCRatio);
@@ -165,4 +178,13 @@ const InfoCard = styled(BaseCard)`
 const SeparateLine = styled.div`
   background: rgba(130, 130, 149, 0.3);
   height: 1px;
+`;
+
+const ErrorContainer = styled(FlexItemsCenter)`
+  margin: 10px 0;
+  border-radius: 6px;
+  padding: 18px;
+  gap: 14px;
+  background: #ff9ba7;
+  color: ${({ theme }) => theme.colors.gray900};
 `;
