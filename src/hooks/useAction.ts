@@ -19,12 +19,12 @@ type useActionType = {
   collateral: Asset;
 };
 
-type useActionReturn = {
+export interface useActionReturn {
   activeToken: TokenInterface;
   loan: WeiAsset;
   collateral: WeiAsset;
   actionLabel: string;
-};
+}
 
 const TokenList: Record<string, TokenInterface> = {
   sUSD,

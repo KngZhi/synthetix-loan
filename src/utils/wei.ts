@@ -11,4 +11,10 @@ const generateWei = (
   };
 };
 
+const safeWei = (value: string) => {
+  return value ? wei(value, 18) : wei(0);
+};
+
+export { safeWei };
+
 export default generateWei;

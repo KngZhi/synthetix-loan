@@ -7,18 +7,18 @@ import { Text18 } from '@/components/Base/Text';
 import { Flex } from '@/components/Base/Div';
 import type { TokenInterface } from '@/constants/tokens';
 
-type TokenSelectorProps = {
+export interface TokenSelectorProps {
   activeToken: TokenInterface;
   tokenList: TokenInterface[];
-  onClick: (token: TokenInterface) => void;
-};
+  onClick?: (token: TokenInterface) => void;
+}
 
 const TokenSelector = ({
   activeToken,
   tokenList,
   onClick,
 }: TokenSelectorProps) => {
-  if (tokenList.length === 0) {
+  if (tokenList.length === 0 || !onClick) {
     return (
       <CoinSelector>
         <Image
