@@ -41,7 +41,7 @@ const Withdraw: React.FC<ActionProps> = ({
     withdrawTxn.mutate();
   };
   let errorMsg = withdrawTxn.errorMessage;
-  if (newCRatio.lt(minCRatio)) {
+  if (value !== `` && newCRatio.lt(minCRatio)) {
     errorMsg = `C-Ratio is too low`;
   }
 
@@ -63,7 +63,7 @@ const Withdraw: React.FC<ActionProps> = ({
       <ActionButton
         onClick={withdraw}
         msg={actionLabel}
-        disabled={withdrawalAmount.eq(0) || !!errorMsg}
+        disabled={!!errorMsg}
       />
     </>
   );

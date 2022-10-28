@@ -4,7 +4,7 @@ import { Text } from '@/components/Base/Text';
 import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { ChevronDown } from 'react-feather';
 import { FlexRowCentered, FlexCenter } from '@/components/Base/Div';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { loanState } from '@/store/loan';
 import { GasPrice } from '@synthetixio/queries';
@@ -43,6 +43,10 @@ const ActionCard = () => {
   const newCRatio = value
     ? calculateLoanCRatio(exchangeRates, newCollateral, newLoan)
     : wei(0);
+
+  useEffect(() => {
+    setValue(``);
+  }, [action]);
 
   const Actions: Record<string, any> = {
     repay: Repay,
