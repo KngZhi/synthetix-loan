@@ -4,9 +4,9 @@ import Head from 'next/head';
 import Layout from '@/components/layout';
 import { Title } from '@/components/Base/Text';
 import { FlexCol, FlexRow } from '@/components/Base/Div';
-import PositionTable from '@/sections/Positions/PositionTable';
-import LoanHistory from '@/sections/Positions/LoanHistory';
-import PendingWithdrawals from '@/sections/Positions/PendingWithdrawals';
+import PositionTable from '@/section/Positions/PositionTable';
+import LoanHistory from '@/section/Positions/LoanHistory';
+import PendingWithdrawals from '@/section/Positions/PendingWithdrawals';
 
 const PositionPage = (): JSX.Element => {
   return (

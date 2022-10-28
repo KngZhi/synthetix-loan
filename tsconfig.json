@@ -19,7 +19,7 @@
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
       "@/assets/*": ["./assets/*"],
-      "@/sections/*": ["./section/*"]
+      "@/sections/*": ["src/section/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

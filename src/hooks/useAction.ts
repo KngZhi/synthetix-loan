@@ -37,7 +37,7 @@ const safeWei = (value: string) => {
 };
 
 const ActionButtonLabels = {
-  borrow: `Borrow More`,
+  draw: `Draw More`,
   repay: `Repay Loan`,
   deposit: `Deposit Collateral`,
   withdraw: `Withdraw Collateral`,
@@ -55,7 +55,7 @@ function useAction({
   let activeToken = TokenList[loan.asset];
   const valueWei = safeWei(value);
   switch (action) {
-    case `borrow`:
+    case `draw`:
       loanWei = loanWei.add(valueWei);
       break;
     case `repay`:

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout from '@/components/layout';
 import { Text30 } from '@/components/Base/Text';
-import MainCard from '@/sections/Borrow/MainCard';
+import MainCard from '@/section/Borrow/MainCard';
 
 export default function Home() {
   return (

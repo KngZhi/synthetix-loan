@@ -5,14 +5,14 @@ import Head from 'next/head';
 import Layout from '@/components/layout';
 import { Title, Text, Text12 } from '@/components/Base/Text';
 import { FlexCol, Flex, FlexRow } from '@/components/Base/Div';
-import PositionTable from '@/sections/Positions/PositionTable';
+import PositionTable from '@/section/Positions/PositionTable';
 import { BaseCard } from '@/components/Base/Card';
 import Wallet from '@/assets/png/stats/wallet.png';
 import Percent from '@/assets/png/stats/percent.png';
 import Chart from '@/assets/png/stats/chart.png';
 import Clock from '@/assets/png/stats/clock.png';
 import Earn from '@/assets/png/stats/earn2.png';
-import OpenInterestTable from '@/sections/Stats/OpenInterestTable';
+import OpenInterestTable from '@/section/Stats/OpenInterestTable';
 
 const PositionPage = (): JSX.Element => {
   return (

@@ -5,7 +5,7 @@ import { BaseCard } from '@/components/Base/Card';
 import styled from 'styled-components';
 import { FlexCol, FlexItemsCenter, FlexRow } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
-import { sUSD, sETH, TokenInterface, ETH } from '@/constants/tokens';
+import { sUSD, sETH } from '@/constants/tokens';
 import TokenSelector from '@/components/TokenSelector';
 import Loans from '@/containers/Loans';
 import Connector from '@/containers/connector';
@@ -17,7 +17,6 @@ import React, { useEffect } from 'react';
 import { ArrowRight } from 'react-feather';
 import { Flex } from '@/components/Base/Div';
 import type { TokenSelectorProps } from '@/components/TokenSelector';
-import { safeWei } from '@/utils/wei';
 import AlertIcon from '@/assets/png/alert.png';
 import Image from 'next/image';
 
@@ -29,6 +28,7 @@ export interface ActionPanelProps extends TokenSelectorProps {
   optimismLayerOneFee: Wei | null;
   onGasChange(gas: GasPrice | undefined): void;
   errorMsg?: string;
+  disableInput?: boolean;
 }
 
 const ActionPanel = ({
@@ -42,6 +42,7 @@ const ActionPanel = ({
   tokenList = [sUSD, sETH],
   newCRatio,
   errorMsg,
+  disableInput = false,
 }: ActionPanelProps) => {
   const { isL2 } = Connector.useContainer();
   const { issueFeeRate, interestRate, minCRatio } = Loans.useContainer();
@@ -60,7 +61,12 @@ const ActionPanel = ({
           tokenList={tokenList}
         />
         <BalanceContainer>
-          <NumericInput onChange={onChange} value={value} placeholder="0.00" />
+          <NumericInput
+            disabled={disableInput}
+            onChange={onChange}
+            value={value}
+            placeholder="0.00"
+          />
           <Balance asset={activeToken.name} />
         </BalanceContainer>
       </TokenCard>

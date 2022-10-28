@@ -16,8 +16,8 @@ import {
 } from '@/components/Currency/CurrencyIcon';
 import { BaseCard } from '@/components/Base/Card';
 import { InfoTooltip } from '@/components/Tooltip';
-import ActionHistory from '@/sections/Positions/ActionHistory';
-import ActionCard from '@/sections/Positions/ActionCard';
+import ActionHistory from '@/section/Positions/ActionHistory';
+import ActionCard from '@/section/Positions/ActionCard';
 import { formatPercent, formatString } from '@/utils/formatters/number';
 import { useRecoilState } from 'recoil';
 import { loanState } from '@/store/loan';

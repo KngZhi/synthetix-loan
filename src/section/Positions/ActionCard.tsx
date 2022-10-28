@@ -44,7 +44,7 @@ const ActionCard = () => {
     ? calculateLoanCRatio(exchangeRates, newCollateral, newLoan)
     : wei(0);
 
-  const Actions = {
+  const Actions: Record<string, any> = {
     repay: Repay,
     draw: Draw,
     deposit: Deposit,
