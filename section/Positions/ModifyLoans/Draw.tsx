@@ -1,22 +1,11 @@
 import ActionPanel from '@/components/ActionPanel';
 import ActionButton from '@/components/ActionButton';
-import { Loan } from '@/containers/Loans/types';
-import useSynthetixQueries, { GasPrice } from '@synthetixio/queries';
-import Wei, { wei } from '@synthetixio/wei';
-import type { useActionReturn } from '@/hooks/useAction';
-import type { ActionPanelProps } from '@/components/ActionPanel';
+import useSynthetixQueries from '@synthetixio/queries';
+import { wei } from '@synthetixio/wei';
 import { safeWei } from '@/utils/wei';
 import { useRouter } from 'next/router';
 import { calculateMaxDraw } from './helper';
-
-interface RepayProps
-  extends Pick<useActionReturn, 'actionLabel' | 'activeToken'>,
-    ActionPanelProps {
-  loan: Loan;
-  newCRatio: Wei;
-  value: string;
-  gasPrice: GasPrice;
-}
+import { ActionProps } from './type';
 
 const Draw = ({
   loan,
@@ -27,7 +16,7 @@ const Draw = ({
   actionLabel,
   onGasChange,
   onChange,
-}: RepayProps) => {
+}: ActionProps) => {
   const { useSynthetixTxn, useExchangeRatesQuery } = useSynthetixQueries();
   const router = useRouter();
   const valueWei = safeWei(value);

@@ -1,22 +1,11 @@
 import ActionPanel from '@/components/ActionPanel';
 import ActionButton from '@/components/ActionButton';
-import { Loan } from '@/containers/Loans/types';
-import useSynthetixQueries, { GasPrice } from '@synthetixio/queries';
-import Wei, { wei } from '@synthetixio/wei';
+import useSynthetixQueries from '@synthetixio/queries';
+import { wei } from '@synthetixio/wei';
 import Connector from '@/containers/connector';
-import type { useActionReturn } from '@/hooks/useAction';
-import type { ActionPanelProps } from '@/components/ActionPanel';
 import { safeWei } from '@/utils/wei';
 import { useRouter } from 'next/router';
-
-interface RepayProps
-  extends Pick<useActionReturn, 'actionLabel' | 'activeToken'>,
-    ActionPanelProps {
-  loan: Loan;
-  newCRatio: Wei;
-  value: string;
-  gasPrice: GasPrice;
-}
+import { ActionProps } from './type';
 
 const Repay = ({
   loan,
@@ -27,7 +16,7 @@ const Repay = ({
   actionLabel,
   onGasChange,
   onChange,
-}: RepayProps) => {
+}: ActionProps) => {
   const { useSynthetixTxn } = useSynthetixQueries();
   const router = useRouter();
   const { walletAddress } = Connector.useContainer();
