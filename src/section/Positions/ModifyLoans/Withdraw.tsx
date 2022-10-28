@@ -32,23 +32,15 @@ const Withdraw: React.FC<ActionProps> = ({
       enabled: !withdrawalAmount.eq(0),
       onSuccess: async () => {
         await reloadPendingWithdrawals();
-        // setIsWorking('');
-        // setTxModalOpen(false);
         router.push(`/position`);
-      },
-      onError: () => {
-        // setIsWorking('');
-        // setTxModalOpen(false);
       },
     },
   );
 
   const withdraw = async () => {
-    // setIsWorking(`depositing`);
-    // setTxModalOpen(true);
     withdrawTxn.mutate();
   };
-  let errorMsg = ``;
+  let errorMsg = withdrawTxn.errorMessage;
   if (newCRatio.lt(minCRatio)) {
     errorMsg = `C-Ratio is too low`;
   }
@@ -71,7 +63,7 @@ const Withdraw: React.FC<ActionProps> = ({
       <ActionButton
         onClick={withdraw}
         msg={actionLabel}
-        disabled={withdrawalAmount.eq(0) || newCRatio.lt(minCRatio)}
+        disabled={withdrawalAmount.eq(0) || !!errorMsg}
       />
     </>
   );

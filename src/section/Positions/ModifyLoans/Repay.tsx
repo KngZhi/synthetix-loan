@@ -21,7 +21,7 @@ const Repay = ({
   const router = useRouter();
   const { walletAddress } = Connector.useContainer();
   const valueWei = safeWei(value);
-  const txn = useSynthetixTxn(
+  const repayTxn = useSynthetixTxn(
     `CollateralEth`,
     `repay`,
     [walletAddress, Number(loan.id), valueWei.toBN()],
@@ -38,13 +38,12 @@ const Repay = ({
   );
 
   const repay = async () => {
-    txn.mutate();
+    repayTxn.mutate();
   };
-  let submitDisabled = false;
-  let errorMsg = undefined;
+
+  let errorMsg = repayTxn.errorMessage;
 
   if (valueWei.gt(loan.amount)) {
-    submitDisabled = true;
     errorMsg = `consider closing the loan instead of full repayment`;
   }
 
@@ -59,13 +58,9 @@ const Repay = ({
         activeToken={activeToken}
         cRatio={wei(loan.cratio)}
         newCRatio={newCRatio}
-        optimismLayerOneFee={txn.optimismLayerOneFee}
+        optimismLayerOneFee={repayTxn.optimismLayerOneFee}
       />
-      <ActionButton
-        onClick={repay}
-        msg={actionLabel}
-        disabled={submitDisabled}
-      />
+      <ActionButton onClick={repay} msg={actionLabel} disabled={!!errorMsg} />
     </>
   );
 };

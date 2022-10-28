@@ -1,8 +1,5 @@
-import { useState } from 'react';
-import { ethers } from 'ethers';
 import { wei } from '@synthetixio/wei';
 import { useRouter } from 'next/router';
-import { getETHToken } from '@/contracts/ethToken';
 import Connector from '@/containers/connector';
 import useSynthetixQueries from '@synthetixio/queries';
 import { ActionProps } from './type';
@@ -36,16 +33,10 @@ const Deposit: React.FC<ActionProps> = ({
       onSuccess: () => {
         router.push(`/position`);
       },
-      onError: () => {
-        // setIsWorking(``);
-        // setTxModalOpen(false);
-      },
     },
   );
 
   const deposit = async () => {
-    // setIsWorking(`depositing`);
-    // setTxModalOpen(true);
     depositTxn.mutate();
   };
 
@@ -53,6 +44,7 @@ const Deposit: React.FC<ActionProps> = ({
     <>
       <ActionPanel
         {...{
+          errorMsg: depositTxn.errorMessage,
           tokenList: [],
           onChange,
           value,
@@ -66,7 +58,7 @@ const Deposit: React.FC<ActionProps> = ({
       <ActionButton
         onClick={deposit}
         msg={actionLabel}
-        disabled={depositAmount.lte(0)}
+        disabled={!!depositTxn.errorMessage}
       />
     </>
   );

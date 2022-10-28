@@ -46,6 +46,7 @@ const Draw = ({
   return (
     <>
       <ActionPanel
+        errorMsg={txn.errorMessage}
         value={valueWei.gt(maxDraw) ? maxDraw.toString(2) : value}
         onGasChange={onGasChange}
         onChange={onChange}
@@ -55,7 +56,11 @@ const Draw = ({
         newCRatio={newCRatio}
         optimismLayerOneFee={txn.optimismLayerOneFee}
       />
-      <ActionButton onClick={repay} msg={actionLabel} disabled={false} />
+      <ActionButton
+        onClick={repay}
+        msg={actionLabel}
+        disabled={!!txn.errorMessage}
+      />
     </>
   );
 };
