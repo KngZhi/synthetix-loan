@@ -4,7 +4,6 @@ import { Text } from '@/components/Base/Text';
 import { DefaultDropdownMenu } from '@/components/Dropdown';
 import { ChevronDown } from 'react-feather';
 import { FlexRowCentered, FlexCenter } from '@/components/Base/Div';
-import ActionPanel from '@/components/ActionPanel';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { loanState } from '@/store/loan';
@@ -13,10 +12,15 @@ import useSynthetixQueries from '@synthetixio/queries';
 import { wei } from '@synthetixio/wei';
 import { calculateLoanCRatio } from '@/components/ActionPanel/utils';
 import useAction from '@/hooks/useAction';
-import ActionButton from '@/components/ActionButton';
+
+import Repay from './ModifyLoans/Repay';
+import Draw from './ModifyLoans/Draw';
+import Deposit from './ModifyLoans/Deposit';
+import Withdraw from './ModifyLoans/Withdraw';
+import Close from './ModifyLoans/Close';
 
 const ActionCard = () => {
-  const actions = [`borrow`, `repay`, `deposit`, `withdraw`, `close`];
+  const actions = [`draw`, `repay`, `deposit`, `withdraw`, `close`];
   const [action, setAction] = useState<string>(``);
   const [loan] = useRecoilState(loanState);
   const [value, setValue] = useState<string>(``);
@@ -39,6 +43,15 @@ const ActionCard = () => {
   const newCRatio = value
     ? calculateLoanCRatio(exchangeRates, newCollateral, newLoan)
     : wei(0);
+
+  const Actions = {
+    repay: Repay,
+    draw: Draw,
+    deposit: Deposit,
+    withdraw: Withdraw,
+    close: Close,
+  };
+  const Action = Actions[action];
 
   return (
     <Container>
@@ -70,17 +83,18 @@ const ActionCard = () => {
           <SubHeader gap={5}>
             <Text fontWeight={700}>{action}</Text>
           </SubHeader>
-          <ActionPanel
-            cRatio={wei(loan.cratio)}
-            optimismLayerOneFee={wei(0)}
-            onGasChange={setGasPrice}
-            tokenList={[]}
-            value={value}
-            activeToken={activeToken}
-            onChange={setValue}
-            newCRatio={newCRatio}
+          <Action
+            {...{
+              onChange: setValue,
+              loan,
+              newCRatio,
+              activeToken,
+              actionLabel,
+              value,
+              gasPrice,
+              onGasChange: setGasPrice,
+            }}
           />
-          <ActionButton msg={actionLabel} />
         </>
       )}
     </Container>
