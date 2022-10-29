@@ -6,7 +6,7 @@ import { BaseCard } from '@/components/Base/Card';
 import { FlexCol, FlexItemsCenter } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
 import { ArrowDown } from 'react-feather';
-import { sUSD, ETH } from '@/constants/tokens';
+import { sUSD, ETH, sETH } from '@/constants/tokens';
 import type { TokenInterface } from '@/constants/tokens';
 import { Text12 } from '@/components/Base/Text';
 import ActionPanel from '@/components/ActionPanel';
@@ -105,6 +105,7 @@ export default function MainCard() {
         <ArrowDown size={32} color="#9999AC" />
       </IconArrow>
       <ActionPanel
+        tokenList={[sUSD, sETH]}
         errorMsg={errorMsg}
         onGasChange={setGasPrice}
         optimismLayerOneFee={openTxn.optimismLayerOneFee}
