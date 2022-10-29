@@ -216,7 +216,7 @@ const useConnector = () => {
         if (onboard) {
           await onboard.connectWallet();
           if (chainId) {
-            await onboard.setChain({ chainId });
+            await onboard.setChain({ chainId: String(chainId) });
           }
         }
       } catch (e) {
