@@ -1,6 +1,5 @@
-import Wei from '@synthetixio/wei';
 import ActionButton from '@/components/ActionButton';
-import useTokensBalances from '@/hooks/useTokensBalances';
+import Connector from '@/containers/connector';
 
 type SubmitButtonProps = {
   isWalletConnected: boolean;
@@ -13,12 +12,13 @@ const SubmitButton = ({
   onClick,
   disabled,
 }: SubmitButtonProps) => {
+  const { connectWallet } = Connector.useContainer();
   const getState = () => {
     if (!isWalletConnected) {
       return {
         disabled: false,
         msg: `Connect Wallet`,
-        onClick,
+        onClick: connectWallet,
       };
     }
 
