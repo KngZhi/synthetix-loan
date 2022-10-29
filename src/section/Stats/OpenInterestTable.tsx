@@ -1,23 +1,24 @@
 import styled from 'styled-components';
 import { BaseCard } from '@/components/Base/Card';
 import Table from '@/components/Table/ReactTable';
-import { makeInterest } from '@/components/Table/makeData';
-import { useState } from 'react';
 import { Text12, Text, Text18 } from '@/components/Base/Text';
 import { CurrencyIcon } from '@/components/Currency/CurrencyIcon';
 import { FlexRow, Flex, FlexCol } from '@/components/Base/Div';
+import useStats from './useStats';
+import { formatDollar, formatCurrency } from '@/utils/string';
 
 const OpenInterestTable = () => {
-  const [data, setData] = useState(() => makeInterest());
+  const { borrows, borrowsOpenInterestUSD } = useStats();
+
   const columns = [
     {
       accessor: `key`,
       Cell: ({ row }: any) => (
         <AssetCell>
-          <CurrencyIcon currencyKey={row.original.key} sizes={40} />
+          <CurrencyIcon currencyKey={row.original.currency} sizes={40} />
           <div>
-            <Text size={14}>{row.original.name}</Text>
-            <Text color="#9999AC">{row.original.fullName}</Text>
+            <Text size={14}>{row.original.currency}</Text>
+            <Text color="#9999AC"></Text>
           </div>
         </AssetCell>
       ),
@@ -28,9 +29,11 @@ const OpenInterestTable = () => {
     {
       Cell: ({ row }: any) => (
         <AmountCell>
-          <Text size={14}>{row.original.size}</Text>
+          <Text size={14}>
+            {formatCurrency(row.original.openInterest.toString(2), 2)}
+          </Text>
           <Text size={12} color="#9999AC">
-            {row.original.amount}
+            {formatCurrency(row.original.openInterestUSD.toString(2), 2)}
           </Text>
         </AmountCell>
       ),
@@ -43,10 +46,10 @@ const OpenInterestTable = () => {
   return (
     <Container>
       <Title>Open Interest</Title>
-      <Table columns={columns} data={data} headerHeight={40} />
+      <Table columns={columns} data={borrows} headerHeight={40} />
       <Total>
         <Text18>Total</Text18>
-        <Text18>$234,468,939.98</Text18>
+        <Text18>{formatDollar(borrowsOpenInterestUSD.toString(2))}</Text18>
       </Total>
     </Container>
   );
@@ -58,6 +61,9 @@ const Container = styled(BaseCard)`
     border: unset;
     border-radius: unset;
     border-bottom: 1px solid #575768;
+    .table-body-row span {
+      text-transform: unset;
+    }
   }
 `;
 const Title = styled.div`

@@ -7,5 +7,11 @@ export const truncateBalance = (balance: string, decimal = 6): string => {
   return Number(balance).toFixed(decimal).replace(/\.0+$/, ``);
 };
 
-export const formatCurrency = (value: number | string, precision: number) =>
-  new Currency(value, { precision, separator: `,`, symbol: `` }).format();
+export const formatCurrency = (
+  value: number | string,
+  precision: number,
+  symbol = ``,
+) => new Currency(value, { precision, separator: `,`, symbol }).format();
+
+export const formatDollar = (value: number | string) =>
+  formatCurrency(value, 2, `$`);

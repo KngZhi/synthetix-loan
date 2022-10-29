@@ -5,6 +5,7 @@ export const Text = styled.span<{
   size?: number;
   fontWeight?: number;
   lineHeight?: string;
+  textTransform?: boolean;
 }>`
   font-size: ${({ size }) => size || 12}px;
   ${({ fontWeight }) => fontWeight && `font-weight: ${fontWeight};`}
