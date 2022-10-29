@@ -6,6 +6,7 @@ import { CurrencyIcon } from '@/components/Currency/CurrencyIcon';
 import { FlexRow, Flex, FlexCol } from '@/components/Base/Div';
 import useStats from './useStats';
 import { formatDollar, formatCurrency } from '@/utils/string';
+import { NAMES } from './constants';
 
 const OpenInterestTable = () => {
   const { borrows, borrowsOpenInterestUSD } = useStats();
@@ -18,7 +19,7 @@ const OpenInterestTable = () => {
           <CurrencyIcon currencyKey={row.original.currency} sizes={40} />
           <div>
             <Text size={14}>{row.original.currency}</Text>
-            <Text color="#9999AC"></Text>
+            <Text color="#9999AC">{NAMES[row.original.currency]}</Text>
           </div>
         </AssetCell>
       ),
