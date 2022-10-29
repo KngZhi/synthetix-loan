@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Wei, { wei } from '@synthetixio/wei';
 import { useState } from 'react';
-
+import useTokensBalances from '@/hooks/useTokensBalances';
 import { BaseCard } from '@/components/Base/Card';
 import { FlexCol, FlexItemsCenter } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
@@ -20,17 +20,7 @@ import SubmitButton from './components/SubmitButton';
 import { getSafeMinCRatioBuffer } from './utils';
 import { ethers } from 'ethers';
 import { useQuery } from 'react-query';
-
-const generateWei = (
-  value: string,
-  token: TokenInterface,
-): { amount: Wei; asset: string } => {
-  const amount = value ? wei(value, token.decimals) : wei(0);
-  return {
-    amount,
-    asset: token.name,
-  };
-};
+import generateWei from '@/utils/wei';
 
 export default function MainCard() {
   const { synthetixjs, isWalletConnected } = Connector.useContainer();
@@ -58,7 +48,6 @@ export default function MainCard() {
       return wei(await loanContract.minCollateral());
     },
   );
-
   const openTxn = useSynthetixTxn(
     `CollateralEth`,
     `open`,
@@ -72,6 +61,23 @@ export default function MainCard() {
     if (!openTxn) return;
     openTxn.mutate();
   };
+
+  let errorMsg = openTxn.errorMessage;
+  const collateralBalance = useTokensBalances();
+  const hasLowCollateralAmount = collateralWei.amount.lt(minCollateralAmount);
+  const hasLowCratio =
+    !collateralWei.amount.eq(0) &&
+    !debtWei.amount.eq(0) &&
+    cRatio.lt(safeMinCratio);
+  const hasInsufficientCollateral = collateralBalance.lt(minCollateralAmount);
+  if (hasLowCollateralAmount) {
+    errorMsg = `MINIMUM COLLATERAL IS ${minCollateralAmount.toString(2)}`;
+  } else if (hasLowCratio) {
+    errorMsg = `C-RATIO TOO LOW`;
+  } else if (hasInsufficientCollateral) {
+    errorMsg = `INSUFFICIENT COLLATERAL TO BORROW`;
+  }
+
   return (
     <Container>
       <div>
@@ -81,7 +87,7 @@ export default function MainCard() {
         <TokenSelector
           onClick={setCollateralToken}
           activeToken={collateralToken}
-          tokenList={[sUSD, ETH]}
+          tokenList={[]}
         />
         <BalanceContainer>
           <NumericInput
@@ -99,6 +105,7 @@ export default function MainCard() {
         <ArrowDown size={32} color="#9999AC" />
       </IconArrow>
       <ActionPanel
+        errorMsg={errorMsg}
         onGasChange={setGasPrice}
         optimismLayerOneFee={openTxn.optimismLayerOneFee}
         cRatio={cRatio}
@@ -108,11 +115,7 @@ export default function MainCard() {
         onChange={setDebtInput}
       />
       <SubmitButton
-        minCollateral={minCollateralAmount}
-        collateral={collateralWei.amount}
-        debt={debtWei.amount}
-        cRatio={cRatio}
-        safeMinCratio={safeMinCratio}
+        disabled={!!errorMsg}
         isWalletConnected={isWalletConnected}
         onClick={onSubmit}
       />
