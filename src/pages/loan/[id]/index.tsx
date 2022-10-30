@@ -185,5 +185,3 @@ const CRatioSign = styled(FlexRowCentered)`
   border-radius: 4px;
   height: 16px;
 `;
-
-const Container = styled(FlexRow)``;

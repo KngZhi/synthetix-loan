@@ -5,6 +5,7 @@ const colors = {
   dark: `#0E052F`,
   grey: `rgba(255, 255, 255, 0.64);`,
   cyan: `#00D1FF`,
+  cyan500: `#00d1ff`,
   gray500: `#9999AC`,
   gray600: `#828295`,
   gray700: `#6C6C7E`,

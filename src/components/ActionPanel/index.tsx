@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Wei from '@synthetixio/wei';
 import { GasPrice } from '@synthetixio/queries';
 import { Text16, Text } from '@/components/Base/Text';
@@ -19,6 +20,7 @@ import { Flex } from '@/components/Base/Div';
 import type { TokenSelectorProps } from '@/components/TokenSelector';
 import AlertIcon from '@/assets/png/alert.png';
 import Image from 'next/image';
+import InfoTooltip from '../Tooltip';
 
 export interface ActionPanelProps extends TokenSelectorProps {
   value: string;
@@ -52,6 +54,10 @@ const ActionPanel = ({
     onGasChange(gasPrice);
   }, [gasPrice, onGasChange]);
 
+  const cRatioInfoContent = `Ensure your position stays above ${formatPercent(
+    minCRatio,
+  )} to prevent liquidation.`;
+
   return (
     <>
       <TokenCard>
@@ -80,7 +86,12 @@ const ActionPanel = ({
       )}
       <InfoCard>
         <RatioRow
-          lText="C-Ratio"
+          lText={
+            <Flex gap={5}>
+              C-Ratio
+              <InfoTooltip content={cRatioInfoContent} />
+            </Flex>
+          }
           rText={
             <CRatio
               cRatio={cRatio}

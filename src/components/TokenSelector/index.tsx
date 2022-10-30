@@ -73,6 +73,9 @@ const CoinSelector = styled(Flex)<{ height?: string }>`
   align-items: center;
   gap: 5px;
   height: ${({ height }) => height || `100%`};
+  span {
+    text-transform: unset;
+  }
 `;
 
 const Coin = styled(Flex)<{ active: boolean }>`
@@ -81,6 +84,9 @@ const Coin = styled(Flex)<{ active: boolean }>`
   padding: 10px 8px;
   gap: 5px;
   ${(props) => props.active && `background: rgba(255, 255, 255, 0.06);`}
+  span {
+    text-transform: unset;
+  }
 `;
 
 const DropdownContainer = styled.div`

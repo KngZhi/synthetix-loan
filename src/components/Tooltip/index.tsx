@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import styled from 'styled-components';
 import InfoCircle from '@/assets/svg/info-circle.svg';
 import Image from 'next/image';
@@ -14,7 +13,7 @@ const TooltipContent = styled.div`
   &:after {
     content: '';
     position: absolute;
-    top: 64%;
+    top: 72%;
     left: 50%;
     margin-left: -8px;
     border-width: 8px;
