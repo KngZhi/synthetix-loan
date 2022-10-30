@@ -3,7 +3,7 @@ import Wei, { wei } from '@synthetixio/wei';
 import { useState } from 'react';
 import useTokensBalances from '@/hooks/useTokensBalances';
 import { BaseCard } from '@/components/Base/Card';
-import { FlexCol, FlexItemsCenter } from '@/components/Base/Div';
+import { FlexCol, FlexItemsCenter, Flex } from '@/components/Base/Div';
 import NumericInput from '@/components/NumericInput';
 import { ArrowDown } from 'react-feather';
 import { sUSD, ETH, sETH } from '@/constants/tokens';
@@ -21,6 +21,7 @@ import { getSafeMinCRatioBuffer } from './utils';
 import { ethers } from 'ethers';
 import { useQuery } from 'react-query';
 import generateWei from '@/utils/wei';
+import { BaseButton } from '@/components/Base/Button';
 
 export default function MainCard() {
   const { synthetixjs, isWalletConnected } = Connector.useContainer();
@@ -90,15 +91,15 @@ export default function MainCard() {
           tokenList={[]}
         />
         <BalanceContainer>
-          <NumericInput
-            value={collateralInput}
-            placeholder="0.00"
-            onChange={setCollateralInput}
-          />
-          <Balance
-            asset="ETH"
-            onSetMaxAmount={(value) => setCollateralInput(value)}
-          />
+          <InputContainer>
+            {/* <MaxButton>Max</MaxButton> */}
+            <NumericInput
+              value={collateralInput}
+              placeholder="0.00"
+              onChange={setCollateralInput}
+            />
+          </InputContainer>
+          <Balance asset="ETH" />
         </BalanceContainer>
       </TokenCard>
       <IconArrow>
@@ -136,6 +137,7 @@ const TokenCard = styled(BaseCard)`
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const BalanceContainer = styled(FlexCol)`
@@ -149,4 +151,17 @@ const IconArrow = styled(FlexItemsCenter)`
   height: 32px;
   margin: 0 auto;
   margin-bottom: 26px;
+`;
+
+const InputContainer = styled(Flex)`
+  justify-content: flex-end;
+  input {
+    width: 20%;
+  }
+`;
+const MaxButton = styled(BaseButton)`
+  color: ${({ theme }) => theme.colors.cyan500};
+  font-weight: 700;
+  background: unset;
+  border: unset;
 `;
