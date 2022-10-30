@@ -110,12 +110,22 @@ const PositionTable = (): JSX.Element => {
 
   return (
     <Container>
-      <Table columns={columns} data={loans} />
+      <Table
+        noResultsMessage={<NoResult>You have no active loans.</NoResult>}
+        columns={columns}
+        data={loans}
+      />
     </Container>
   );
 };
 
 export default PositionTable;
+
+const NoResult = styled(FlexRowCentered)`
+  padding: 20px 0;
+  align-items: center;
+  justify-content: center;
+`;
 
 const ManageButton = styled.button`
   background: ${({ theme }) => theme.colors.greenCyan};
