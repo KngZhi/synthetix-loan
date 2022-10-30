@@ -9,13 +9,14 @@ import { wei } from '@synthetixio/wei';
 import LoanCell from './LoanCell';
 
 const TogglePanel = () => {
-  const { value: isActive, toggle } = useBoolean(true);
+  const { value: isActive, toggle } = useBoolean(false);
+  const { closedLoans } = Loans.useContainer();
   return (
     <Container active={isActive}>
       <TitlePanel active={isActive} onClick={() => toggle()}>
         <FlexRowCentered>
           <Text size={20}>Loan History</Text>
-          <NumberText>9</NumberText>
+          <NumberText>{closedLoans.length}</NumberText>
         </FlexRowCentered>
         <ChevronDown size={16} color={`#00D1FF`} className="down-arrow" />
       </TitlePanel>
